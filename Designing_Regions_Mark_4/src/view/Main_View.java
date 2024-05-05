@@ -12,10 +12,12 @@ public class Main_View {
     private JFrame frame;
 
 
-    private DesigningRegigions_View designingRegions;
+    private Designing_Regions_View designingRegions;
 
-    private URL image = getClass().getResource("/images/Icon mark 2.png");
+    //Icono creado por Alexis Knack
+    private URL image = getClass().getResource("/images/Icon mark 3.png");
 
+    //Lo que hace esta clase es inicializar la ventana en general
     public Main_View(){
         initialize();
     }
@@ -39,7 +41,7 @@ public class Main_View {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        designingRegions = new DesigningRegigions_View(width, height);
+        designingRegions = new Designing_Regions_View(width, height);
         designingRegions.setVisible(true);
         frame.add(designingRegions);
         frame.pack();
@@ -48,7 +50,7 @@ public class Main_View {
         designingRegions.requestFocus();
     }
 
-    public DesigningRegigions_View getDesigningRegions() {
+    public Designing_Regions_View getDesigningRegions() {
         return designingRegions;
     }
 
