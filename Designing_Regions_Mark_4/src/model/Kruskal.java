@@ -50,6 +50,8 @@ public class Kruskal {
 
         Kruskal_Helper kruskalHelper = new Kruskal_Helper(new ArrayList<>(vertices));
 
+        System.out.println(sortedEdges);
+
 
         //Iterar sobre Aristas ordenados
         for (Edge edge : sortedEdges) {

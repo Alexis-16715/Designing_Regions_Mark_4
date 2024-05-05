@@ -3,8 +3,9 @@ package test;
 import graph_model.Graph;
 import graph_model.Vertex;
 import model.Kruskal;
+import model.Kruskal_Mark_2;
 
-public class KruskalTest {
+public class KruskalTest_Mark_2 {
 
     public static void main(String[] args) {
         // Create a graph
@@ -48,7 +49,7 @@ public class KruskalTest {
 
 
         // Create an instance of Kruskal
-        Kruskal kruskal = new Kruskal();
+        Kruskal_Mark_2 kruskal = new Kruskal_Mark_2();
 
         // Calculate minimum spanning tree
         Graph mst = kruskal.minimumSpanningTree(graph);
@@ -63,3 +64,4 @@ public class KruskalTest {
         
     }
 }
+
