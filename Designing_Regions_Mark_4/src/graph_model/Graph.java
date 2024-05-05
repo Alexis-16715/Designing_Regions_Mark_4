@@ -7,7 +7,7 @@ public class Graph {
 
     private ArrayList<Vertex> vertices;
 
-    
+
     public Graph(){
         this.vertices = new ArrayList<Vertex>();
     }
@@ -20,7 +20,20 @@ public class Graph {
 
     public void addEdge(Vertex initialVertex, Vertex finalVertex, Integer weight){
         initialVertex.addEdge(finalVertex, weight);
-        finalVertex.addEdge(initialVertex, weight);
+        
+        // finalVertex.addEdge(initialVertex, weight);
+
+        //Ahora hay que asegurar que el initialVertex este en el grafo, si esta se agrega
+        if (!vertices.contains(initialVertex)) {
+            vertices.add(initialVertex);
+        }
+
+        if (!vertices.contains(finalVertex)) {
+            vertices.add(finalVertex);
+        }
+
+        
+
     }
 
     public void removeEdge(Vertex initialVertex, Vertex finalVerte){
@@ -36,10 +49,15 @@ public class Graph {
         return vertices;
     }
 
+    public void setVertices(ArrayList<Vertex> vertices) {
+        this.vertices = vertices;
+    }
+
     public void print(){
         for(Vertex v: this.vertices){
             v.print();
         }
     }
+
 
 }

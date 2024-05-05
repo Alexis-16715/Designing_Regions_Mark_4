@@ -2,11 +2,13 @@
 
 import java.awt.Dimension;
 import java.awt.Color;
+import java.awt.Cursor;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 
 import province.Province_Argentina;
@@ -25,7 +27,10 @@ public class Designing_Regions_View extends JPanel {
     private int heightPanel;
 
 
-    private JMapViewer map;
+    private JMapViewer mapViewer;
+
+
+    private Coordinate argentina;
 
     //Esta es la clase en la que se genera los botones y mapa
 
@@ -47,24 +52,28 @@ public class Designing_Regions_View extends JPanel {
     private void generatedMapPanel() {
         panelMap = new JPanel();
         widthPanel = 50;
-        heightPanel = 20;
+        heightPanel = -5;
         panelMap.setBounds(widthPanel, heightPanel, width/2, height);
         panelMap.setBackground(Color.GREEN);
 
 
         generatedMap();
-        // panelMap.add(map);
-
-
+        panelMap.add(mapViewer);
 
         add(panelMap);
     }
 
     private void generatedMap() {
-        map = new JMapViewer();
-        map.setBorder(null);
-        map.setZoomControlsVisible(false);
-        map.setPreferredSize(new Dimension(width / 2, height));
+        mapViewer = new JMapViewer();
+        mapViewer.setBorder(null);
+        mapViewer.setZoomControlsVisible(false);
+        mapViewer.setPreferredSize(new Dimension(width / 2, height));
+
+        mapViewer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        //Esta es la coordenadas de Argentina, ENJOY
+        argentina = new Coordinate(-40.2, -63.616);
+        mapViewer.setDisplayPosition(argentina, 5);
     }
 
     

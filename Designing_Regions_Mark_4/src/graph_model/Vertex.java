@@ -1,6 +1,7 @@
 package graph_model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Vertex {
 
@@ -16,9 +17,14 @@ public class Vertex {
 
 
     public void addEdge(Vertex dest, Integer weight){
-        this.edges.add(new Edge(this, dest, weight));
-        //Esto es si se quiere un grafo de doble sentido
-        // this.edges.add(new Edge(dest, this,weight));
+        HashSet<Vertex> connectedVertices = new HashSet<>();
+        for (Edge edge : edges) {
+            connectedVertices.add(edge.getDest());
+        }
+        // Check if the destination vertex already exists
+        if (!connectedVertices.contains(dest)) {
+            edges.add(new Edge(this, dest, weight));
+        }
     }
 
     public void removeEdge(Vertex dest){

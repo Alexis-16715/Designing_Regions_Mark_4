@@ -16,6 +16,14 @@ public class Edge implements Comparator<Edge> {
         this.weight = weight;
     }
 
+    public Edge() {
+        this.src = null;
+        this.dest = null;
+        this.weight = 0;
+    }
+
+
+
     public Vertex getSrc() {
         return src;
     }
@@ -26,6 +34,10 @@ public class Edge implements Comparator<Edge> {
 
     public Integer getWeight() {
         return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     @Override

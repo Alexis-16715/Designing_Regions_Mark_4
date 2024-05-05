@@ -24,12 +24,13 @@ public class Main_View {
 
     private void initialize() {
 
-        height=900;
+        height=950;
         width=900;
 
         frame = new JFrame();
 
         frame.setTitle("Designing Regions Argentina");
+        
 
         ImageIcon icon = new ImageIcon(image);
         frame.setIconImage(icon.getImage());

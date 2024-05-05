@@ -1,19 +1,30 @@
 package view;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
-import org.openstreetmap.gui.jmapviewer.*;
+import org.openstreetmap.gui.jmapviewer.Coordinate;
+import org.openstreetmap.gui.jmapviewer.JMapViewer;
+import org.openstreetmap.gui.jmapviewer.Layer;
+import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
+import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
+import org.openstreetmap.gui.jmapviewer.Style;
+import org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon;
+
+
 
 
 
 public class View_Test extends JFrame {
 
+    private JMapViewer mapViewer;
     public View_Test(){
         initialization();
     }
@@ -21,7 +32,7 @@ public class View_Test extends JFrame {
     private void initialization() {
         setSize(800, 600);
         setTitle("Designing Regions");
-        JMapViewer mapViewer = new JMapViewer();
+        mapViewer = new JMapViewer();
 
         this.add(mapViewer, BorderLayout.CENTER);
 
@@ -34,7 +45,7 @@ public class View_Test extends JFrame {
             mapViewer.addMapMarker(marker);
         }
         
-        drawLine(mapViewer, Province.BUENOS_AIRES, Province.MISIONES);
+        drawLine(Province.BUENOS_AIRES, Province.CORDOBA);
 
         mapViewer.setDisplayPosition(new Coordinate(-30, -60), 5);
 
@@ -43,22 +54,25 @@ public class View_Test extends JFrame {
     }
 
     // No funciona
-    private void drawLine(JMapViewer mapViewer, Province province1, Province province2) {
+    private void drawLine(Province province1, Province province2) {
         System.err.println(province1.getLatitude());
         System.err.println(province2.getLatitude());
         Coordinate pos1 = new Coordinate(province1.getLatitude(), province1.getLongitude());
         Coordinate pos2 = new Coordinate(province2.getLatitude(), province2.getLongitude());
 
-        MapPolygonImpl line = new MapPolygonImpl(new ArrayList<Coordinate>() {{
-            add(pos1);
-            add(pos2);
-        }});
-        
-        line.isVisible();
-        line.setColor(Color.RED); // Set line color to red for visibility
-        mapViewer.addMapPolygon(line);
-        mapViewer.setDisplayToFitMapPolygons(); // Adjust map view to fit the line
-        repaint();
+        List<Coordinate> points = new ArrayList<>();
+        points.add(pos1);
+        points.add(pos2);
+
+        Layer global = new Layer("Global");
+        Style style = new Style();
+        style.setBackColor(Color.RED);
+        style.setColor(Color.RED);
+        style.setStroke(new BasicStroke(0));
+
+        MapPolygon polygon = new MapPolygonImpl(global,"",points,style);
+
+        mapViewer.addMapPolygon(polygon);
     }
 
 
