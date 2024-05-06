@@ -50,7 +50,6 @@ public class Kruskal {
 
         Kruskal_Helper kruskalHelper = new Kruskal_Helper(new ArrayList<>(vertices));
 
-        System.out.println(sortedEdges);
 
 
         //Iterar sobre Aristas ordenados
@@ -65,6 +64,8 @@ public class Kruskal {
 
 
                 kruskalGraph.addEdge(src, dest, weight);
+
+
                 System.out.println(src.getData() + " --> " + dest.getData() + " == " + edge.getWeight());
 
                 //Unir los conjuntos de inicio y destino
