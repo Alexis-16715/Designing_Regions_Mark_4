@@ -44,20 +44,20 @@ public class KruskalTest {
         graph.addEdge(v5, v4, 20);
 
 
-        
-
-
-        // Create an instance of Kruskal
-        Kruskal kruskal = new Kruskal();
-
-        // Calculate minimum spanning tree
-        Graph mst = kruskal.minimumSpanningTree(graph);
-
-
         System.out.println("Grafo Original");
         graph.print();
 
-        // Print the minimum spanning tree (MST)
+        // Crea una instacia para la clase de Algoritmo
+        Kruskal kruskal = new Kruskal();
+
+        System.out.println("--------------");
+
+        // Calcula el algortimo del Arbol
+        Graph mst = kruskal.minimumSpanningTree(graph);
+
+        System.out.println("--------------");
+
+        // Imprimi el resultado
         System.out.println("Kruskal:");
         mst.print();
         

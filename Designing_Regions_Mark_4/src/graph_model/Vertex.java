@@ -12,7 +12,6 @@ public class Vertex {
     public Vertex(String data){
         this.data = data;
         this.edges = new ArrayList<Edge>();
-
     }
 
 
