@@ -20,7 +20,8 @@ public class Vertex {
         for (Edge edge : edges) {
             connectedVertices.add(edge.getDest());
         }
-        // Check if the destination vertex already exists
+
+        //Checkea si vertice ya fue agregado
         if (!connectedVertices.contains(dest)) {
             this.edges.add(new Edge(this, dest, weight));
         }

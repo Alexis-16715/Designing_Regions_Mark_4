@@ -5,10 +5,11 @@ import java.util.ArrayList;
 public class Graph {
 
 
-    private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
+    private ArrayList<Vertex> vertices;
 
 
     public Graph(){
+        this.vertices = new ArrayList<Vertex>();
     }
 
     public Vertex addVertex(String data){
@@ -18,7 +19,6 @@ public class Graph {
     }
 
     public void addEdge(Vertex initialVertex, Vertex finalVertex, Integer weight){
-        initialVertex.addEdge(finalVertex, weight);
         
         // finalVertex.addEdge(initialVertex, weight);
 
@@ -31,13 +31,14 @@ public class Graph {
             vertices.add(finalVertex);
         }
 
+        initialVertex.addEdge(finalVertex, weight);
         
 
     }
 
     public void removeEdge(Vertex initialVertex, Vertex finalVerte){
         initialVertex.removeEdge(finalVerte);
-        finalVerte.removeEdge(initialVertex);
+        // finalVerte.removeEdge(initialVertex);
     }
 
     public void removeVertex(Vertex vertex){

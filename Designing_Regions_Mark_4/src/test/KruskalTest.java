@@ -5,61 +5,76 @@ import graph_model.Vertex;
 import model.Kruskal;
 
 public class KruskalTest {
+    private Graph graphTest;
 
-    public static void main(String[] args) {
-        // Create a graph
-        Graph graph = new Graph();
+    private Graph mst;
 
-        Vertex v0 = graph.addVertex("0");
-        Vertex v1 = graph.addVertex("1");
-        Vertex v2 = graph.addVertex("2");
-        Vertex v3 = graph.addVertex("3");
-        Vertex v4 = graph.addVertex("4");
-        Vertex v5 = graph.addVertex("5");
-        Vertex v6 = graph.addVertex("6");
-        Vertex v7 = graph.addVertex("7");
-        Vertex v8 = graph.addVertex("8");
-        Vertex v9 = graph.addVertex("9");
-
-
-        graph.addEdge(v0, v1, 2);
-        graph.addEdge(v0, v3, 3);
-        graph.addEdge(v0, v6, 6);
-        graph.addEdge(v1, v2, 1);
-        graph.addEdge(v1, v6, 4);
-        graph.addEdge(v3, v5, 9);
-        graph.addEdge(v3, v9, 16);
-        graph.addEdge(v2, v4, 11);
-        graph.addEdge(v2, v8, 17);
-        graph.addEdge(v4, v7, 7);
-        graph.addEdge(v4, v8, 8);
-        graph.addEdge(v4, v6, 12);
-        graph.addEdge(v5, v7, 5);
-        graph.addEdge(v5, v9, 10);
-        graph.addEdge(v5, v6, 13);
-        graph.addEdge(v6, v8, 18);
-        graph.addEdge(v6, v9, 19);
-        graph.addEdge(v7, v9, 14);
-        graph.addEdge(v7, v8, 15);
-        graph.addEdge(v5, v4, 20);
+    public KruskalTest(){
+        makeTheGraph();
+        printTheGraph();
+    }
+    
+    public void makeTheGraph(){
+        graphTest = new Graph();
+        Vertex v0 = graphTest.addVertex("0");
+        Vertex v1 = graphTest.addVertex("1");
+        Vertex v2 = graphTest.addVertex("2");
+        Vertex v3 = graphTest.addVertex("3");
+        Vertex v4 = graphTest.addVertex("4");
+        Vertex v5 = graphTest.addVertex("5");
+        Vertex v6 = graphTest.addVertex("6");
+        Vertex v7 = graphTest.addVertex("7");
+        Vertex v8 = graphTest.addVertex("8");
+        Vertex v9 = graphTest.addVertex("9");
 
 
+
+        graphTest.addEdge(v0, v1, 2);
+        graphTest.addEdge(v0, v3, 3);
+        graphTest.addEdge(v0, v6, 6);
+        graphTest.addEdge(v1, v2, 1);
+        graphTest.addEdge(v1, v6, 4);
+        graphTest.addEdge(v3, v5, 9);
+        graphTest.addEdge(v3, v9, 16);
+        graphTest.addEdge(v2, v4, 11);
+        graphTest.addEdge(v2, v8, 17);
+        graphTest.addEdge(v4, v7, 7);
+        graphTest.addEdge(v4, v8, 8);
+        graphTest.addEdge(v4, v6, 12);
+        graphTest.addEdge(v5, v7, 5);
+        graphTest.addEdge(v5, v9, 10);
+        graphTest.addEdge(v5, v6, 13);
+        graphTest.addEdge(v6, v8, 18);
+        graphTest.addEdge(v6, v9, 19);
+        graphTest.addEdge(v7, v9, 14);
+        graphTest.addEdge(v7, v8, 15);
+        graphTest.addEdge(v5, v4, 20);
+    }
+
+
+    public void printTheGraph(){
         System.out.println("Grafo Original");
-        graph.print();
+        graphTest.print();
 
         // Crea una instacia para la clase de Algoritmo
         Kruskal kruskal = new Kruskal();
 
         System.out.println("--------------");
 
+        mst= new Graph();
+
         // Calcula el algortimo del Arbol
-        Graph mst = kruskal.minimumSpanningTree(graph);
+        mst = kruskal.minimumSpanningTree(graphTest);
 
         System.out.println("--------------");
 
         // Imprimi el resultado
         System.out.println("Kruskal:");
         mst.print();
-        
+    }
+
+    public static void main(String[] args) {
+        KruskalTest test = new KruskalTest();
+
     }
 }
