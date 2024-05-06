@@ -5,11 +5,10 @@ import java.util.ArrayList;
 public class Graph {
 
 
-    private ArrayList<Vertex> vertices;
+    private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
 
 
     public Graph(){
-        this.vertices = new ArrayList<Vertex>();
     }
 
     public Vertex addVertex(String data){

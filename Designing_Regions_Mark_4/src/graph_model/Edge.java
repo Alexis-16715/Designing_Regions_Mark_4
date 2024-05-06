@@ -1,8 +1,7 @@
 package graph_model;
 
-import java.util.Comparator;
 
-public class Edge implements Comparator<Edge> {
+public class Edge {
 
     private Vertex src;
 
@@ -34,9 +33,5 @@ public class Edge implements Comparator<Edge> {
         this.weight = weight;
     }
 
-    @Override
-    public int compare(Edge e1, Edge e2) {
-        return e1.weight - e2.weight;
-    }
 
 }

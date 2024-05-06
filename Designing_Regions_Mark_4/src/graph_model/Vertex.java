@@ -22,7 +22,7 @@ public class Vertex {
         }
         // Check if the destination vertex already exists
         if (!connectedVertices.contains(dest)) {
-            edges.add(new Edge(this, dest, weight));
+            this.edges.add(new Edge(this, dest, weight));
         }
     }
 
@@ -41,10 +41,10 @@ public class Vertex {
     public void print() {
 		String message = "";
 		
-		if (this.edges.size() == 0) {
-			System.out.println(this.data + " -->");
-			return;
-		}
+		// if (this.edges.size() == 0) {
+		// 	System.out.println(this.data + " -->");
+		// 	return;
+		// }
 		
 		for(int i = 0; i < this.edges.size(); i++) {
 			if (i == 0) {
@@ -59,6 +59,10 @@ public class Vertex {
 				message += ", ";
 			}
 		}
+
+        if(this.edges.size() == 0){
+            return;
+        }
 		System.out.println(message);
 	}
 

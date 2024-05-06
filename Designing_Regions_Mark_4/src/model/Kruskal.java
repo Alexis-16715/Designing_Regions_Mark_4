@@ -27,7 +27,6 @@ public class Kruskal {
     public Kruskal (){
         sortedEdges = new ArrayList<>();
         vertices = new HashSet<>();
-
     }
 
     private class weightComparator implements Comparator<Edge> {
@@ -40,12 +39,12 @@ public class Kruskal {
 
 
 
-    public Graph minimumSpanningTree(Graph graph) {
+    public Graph minimumSpanningTree(Graph graphOriginal) {
         kruskalGraph = new Graph();
 
 
         //Agrega todo las aristas en una lista y colecta todo los Vertice
-        for (Vertex vertex : graph.getVertices()) {
+        for (Vertex vertex : graphOriginal.getVertices()) {
             
             vertices.add(vertex);
 
@@ -56,7 +55,6 @@ public class Kruskal {
         Collections.sort(sortedEdges, new weightComparator());
         
         //Inicializar conjunto disjunto para detección de ciclo
-        // Kruskal_Helper kruskalHelper = new Kruskal_Helper(graph.getVertices());
 
         Kruskal_Helper kruskalHelper = new Kruskal_Helper(new ArrayList<>(vertices));
 
