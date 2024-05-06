@@ -40,6 +40,7 @@ public class Kruskal {
         for (Vertex vertex : graph.getVertices()) {
             
             vertices.add(vertex);
+            
             sortedEdges.addAll(vertex.getEdges());
         }
 

@@ -45,20 +45,18 @@ public class KruskalTest_Mark_2 {
         graph.addEdge(v5, v4, 20);
 
 
-        
 
-
-        // Create an instance of Kruskal
+        // crea una instacia
         Kruskal_Mark_2 kruskal = new Kruskal_Mark_2();
 
-        // Calculate minimum spanning tree
+        // Calculo el Kruskal
         Graph mst = kruskal.minimumSpanningTree(graph);
 
 
         System.out.println("Grafo Original");
         graph.print();
 
-        // Print the minimum spanning tree (MST)
+        // Imprime
         System.out.println("Kruskal:");
         mst.print();
         

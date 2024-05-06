@@ -21,6 +21,8 @@ public class Designing_Regions_View extends JPanel {
 
     private Province_Argentina province;
 
+    private Province_Argentina province2;
+
     private JPanel panelMap;
 
     private int widthPanel;
