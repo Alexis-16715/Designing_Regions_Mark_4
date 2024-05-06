@@ -1,15 +1,16 @@
 package test;
 
-import graph_model.Graph;
-import graph_model.Vertex;
-import model.Kruskal;
+import graph_mode.Graph;
+import graph_mode.Vertex;
+import model.Kruskal_Mark_2;
 
-public class KruskalTest {
+
+public class KrusklaTest_Mark_2 {
     private Graph graphTest;
 
     private Graph mst;
 
-    public KruskalTest(){
+    public KrusklaTest_Mark_2(){
         makeTheGraph();
         printTheGraph();
     }
@@ -57,7 +58,7 @@ public class KruskalTest {
         graphTest.print();
 
         // Crea una instacia para la clase de Algoritmo
-        Kruskal kruskal = new Kruskal();
+        Kruskal_Mark_2 kruskal = new Kruskal_Mark_2();
 
         System.out.println("--------------");
 
@@ -74,7 +75,8 @@ public class KruskalTest {
     }
 
     public static void main(String[] args) {
-        KruskalTest test = new KruskalTest();
+        KrusklaTest_Mark_2 test = new KrusklaTest_Mark_2();
 
     }
 }
+

@@ -1,18 +1,18 @@
-package model;
+﻿package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import graph_model.Vertex;
+import graph_mode.Vertex;
 
-public class Kruskal_Helper {
+public class Kruskal_Hehlper_Mark_2 {
 
 
     private Map<Vertex, Vertex> parentMap;
 
 
-    public Kruskal_Helper(ArrayList<Vertex> arrayList) {
+    public Kruskal_Hehlper_Mark_2(ArrayList<Vertex> arrayList) {
         parentMap = new HashMap<>();
         for (Vertex vertex : arrayList) {
             parentMap.put(vertex, vertex);

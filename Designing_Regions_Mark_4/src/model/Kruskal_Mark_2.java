@@ -1,16 +1,19 @@
-package model;
+﻿package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import graph_model.Edge;
-import graph_model.Graph;
-import graph_model.Vertex;
+import graph_mode.Edge;
+import graph_mode.Graph;
+import graph_mode.Vertex;
 
-public class Kruskal {
+
+
+public class Kruskal_Mark_2 {
 
     //Esto es el grafo
     private Graph kruskalGraph;
@@ -24,11 +27,12 @@ public class Kruskal {
 
 
 
-    public Kruskal (){
+    public Kruskal_Mark_2 (){
         sortedEdges = new ArrayList<>();
         vertices = new HashSet<>();
     }
 
+    //Esto es para comparar el peso de las aristas o Edges, se podria implementar en edges pero es mejor tenerlo que para referencia
     private class weightComparator implements Comparator<Edge> {
 
         @Override
@@ -46,22 +50,31 @@ public class Kruskal {
         //Agrega todo las aristas en una lista y colecta todo los Vertice
         for (Vertex vertex : graphOriginal.getVertices()) {
             
+            //Esto es para agregar al grafo nuevo todo los Vertice que nesesita
+            kruskalGraph.addVertex(vertex.getLabel());
+            
             vertices.add(vertex);
 
-            sortedEdges.addAll(vertex.getEdges());
-        }
 
-        // Collections.sort(sortedEdges, Comparator.comparingInt(Edge::getWeight));
+            sortedEdges.addAll(graphOriginal.getAdjacencyList().get(vertex.getIndex()));
+
+            List<Edge> edges = graphOriginal.getAdjacencyList().get(vertex.getIndex());
+
+            //Checkea si la liesta de Aristas (Edges) no esta vacia o Null
+            if (edges != null) { 
+                sortedEdges.addAll(edges);
+            }
+        }
         Collections.sort(sortedEdges, new weightComparator());
         
-        //Inicializar conjunto disjunto para detección de ciclo
+       //Inicializar conjunto disjunto para detección de ciclo
 
-        Kruskal_Helper kruskalHelper = new Kruskal_Helper(new ArrayList<>(vertices));
+        Kruskal_Hehlper_Mark_2 kruskalHelper = new Kruskal_Hehlper_Mark_2(new ArrayList<>(vertices));
 
 
         //Iterar sobre Aristas ordenados
         for (Edge edge : sortedEdges) {
-            Vertex src = edge.getSrc();
+            Vertex src = edge.getSrc();;
             Vertex dest = edge.getDest();
             int weight = edge.getWeight();
 
@@ -71,14 +84,14 @@ public class Kruskal {
                 //Se agrega el caso arista con su peso
                 kruskalGraph.addEdge(src, dest, weight);
 
-                System.out.println(src.getData() + " --> " + dest.getData() + " == " + edge.getWeight());
+                System.out.println(src.getLabel() + " --> " + dest.getLabel() + " == " + edge.getWeight());
 
                 //Unir los conjuntos de inicio y destino
                 kruskalHelper.union(src, dest);
-            } else{
-                kruskalGraph.removeEdge(src,dest);
             }
         }
+
+        //Retornamos el grafo todo armado con su arista corresponientes 
         return kruskalGraph;
 
     }
