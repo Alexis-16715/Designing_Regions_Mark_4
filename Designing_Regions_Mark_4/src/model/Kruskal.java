@@ -25,7 +25,6 @@ public class Kruskal {
 
 
     public Kruskal (){
-        kruskalGraph = new Graph();
         sortedEdges = new ArrayList<>();
         vertices = new HashSet<>();
 
@@ -42,6 +41,7 @@ public class Kruskal {
 
 
     public Graph minimumSpanningTree(Graph graph) {
+        kruskalGraph = new Graph();
 
 
         //Agrega todo las aristas en una lista y colecta todo los Vertice
@@ -61,7 +61,6 @@ public class Kruskal {
         Kruskal_Helper kruskalHelper = new Kruskal_Helper(new ArrayList<>(vertices));
 
 
-
         //Iterar sobre Aristas ordenados
         for (Edge edge : sortedEdges) {
             Vertex src = edge.getSrc();
@@ -71,10 +70,8 @@ public class Kruskal {
             // Comprobar si incluir esta arista forma un ciclo
             if (kruskalHelper.find(src) != kruskalHelper.find(dest)){
 
-
-
+                //Se agrega el caso arista con su peso
                 kruskalGraph.addEdge(src, dest, weight);
-
 
                 System.out.println(src.getData() + " --> " + dest.getData() + " == " + edge.getWeight());
 
@@ -82,8 +79,6 @@ public class Kruskal {
                 kruskalHelper.union(src, dest);
             } else{
                 kruskalGraph.removeEdge(src,dest);
-                vertices.remove(src); // Remueve el vértice src
-                vertices.remove(dest); // Remueve el vértice dest
             }
         }
         return kruskalGraph;
