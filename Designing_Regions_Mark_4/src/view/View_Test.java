@@ -1,10 +1,9 @@
 package view;
 
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,73 +15,92 @@ import org.openstreetmap.gui.jmapviewer.Layer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
 import org.openstreetmap.gui.jmapviewer.Style;
+import org.openstreetmap.gui.jmapviewer.interfaces.ICoordinate;
 import org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon;
-
-
-
-
 
 public class View_Test extends JFrame {
 
     private JMapViewer mapViewer;
-    public View_Test(){
+
+    public View_Test() {
         initialization();
     }
+
+    private class ProvinceMarker extends MapMarkerDot {
+        private final Province province;
+
+        public ProvinceMarker(Province province) {
+            super(province.getLatitude(), province.getLongitude());
+            this.province = province;
+        }
+    }
+
+    class MapPolyLine extends MapPolygonImpl {
+        public MapPolyLine(List<? extends ICoordinate> points) {
+            super(null, null, points);
+        }
+    
+        @Override
+        public void paint(Graphics g, List<Point> points) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setColor(getColor());
+            g2d.setStroke(getStroke());
+            Path2D path = buildPath(points);
+            g2d.draw(path);
+            g2d.dispose();
+        }
+    
+        private Path2D buildPath(List<Point> points) {
+            Path2D path = new Path2D.Double();
+            if (points != null && points.size() > 0) {
+                Point firstPoint = points.get(0);
+                path.moveTo(firstPoint.getX(), firstPoint.getY());
+                for (Point p : points) {
+                    path.lineTo(p.getX(), p.getY());
+                }
+            }
+            return path;
+        }
+    }
+
 
     private void initialization() {
         setSize(800, 600);
         setTitle("Designing Regions");
         mapViewer = new JMapViewer();
 
-        this.add(mapViewer, BorderLayout.CENTER);
-
-         ArrayList<ProvinceMarker> provinceMarkers = new ArrayList<>();
-
         // Add markers for each province
         for (Province province : Province.values()) {
             ProvinceMarker marker = new ProvinceMarker(province);
-            provinceMarkers.add(marker);
             mapViewer.addMapMarker(marker);
         }
-        
-        drawLine(Province.BUENOS_AIRES, Province.CORDOBA);
 
         mapViewer.setDisplayPosition(new Coordinate(-30, -60), 5);
 
+        List<Coordinate> coordinates = new ArrayList<Coordinate>();
+        coordinates.add(new Coordinate(50, 10));
+        coordinates.add(new Coordinate(52, 15));
+        coordinates.add(new Coordinate(55, 15));
+        coordinates.add(new Coordinate(-28.4696, -65.7852));
+
+        MapPolyLine polyLine = new MapPolyLine(coordinates);
+        mapViewer.addMapPolygon(polyLine);
+        add(mapViewer);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        pack();
         setVisible(true);
-    }
-
-    // No funciona
-    private void drawLine(Province province1, Province province2) {
-        System.err.println(province1.getLatitude());
-        System.err.println(province2.getLatitude());
-        Coordinate pos1 = new Coordinate(province1.getLatitude(), province1.getLongitude());
-        Coordinate pos2 = new Coordinate(province2.getLatitude(), province2.getLongitude());
-
-        List<Coordinate> points = new ArrayList<>();
-        points.add(pos1);
-        points.add(pos2);
-
-        Layer global = new Layer("Global");
-        Style style = new Style();
-        style.setBackColor(Color.RED);
-        style.setColor(Color.RED);
-        style.setStroke(new BasicStroke(0));
-
-        MapPolygon polygon = new MapPolygonImpl(global,"",points,style);
-
-        mapViewer.addMapPolygon(polygon);
     }
 
 
     private enum Province {
-        BUENOS_AIRES("Buenos Aires", -36.605, -58.435),
+        BUENOS_AIRES("Buenos Aires", 55, 15),
         CIUDAD_AUTONOMA_BUENOS_AIRES("Ciudad Autónoma de Buenos Aires", -34.615, -58.433),
         CATAMARCA("Catamarca", -28.4696, -65.7852),
         CHACO("Chaco", -27.4512, -58.9866),
         CHUBUT("Chubut", -43.3002, -65.1023),
-        CORDOBA("Córdoba", -31.4201, -64.1888),
+        CORDOBA("Córdoba", 52, 15),
         CORRIENTES("Corrientes", -27.4692, -58.8302),
         ENTRE_RIOS("Entre Ríos", -31.6222, -60.7299),
         FORMOSA("Formosa", -26.1852, -58.1761),
@@ -125,27 +143,9 @@ public class View_Test extends JFrame {
         }
     }
 
-    private class ProvinceMarker extends MapMarkerDot {
-        private final Province province;
+    
 
-        public ProvinceMarker(Province province) {
-            super(province.getLatitude(), province.getLongitude());
-            this.province = province;
-        }
-
-        @Override
-        public void paint(Graphics g, Point position, int radio) {
-            // Se puede modificar la aparaciensa aqui
-            super.paint(g, position, radio*2);
-        }
-
-        @Override
-        public String toString() {
-            return province.getName();
-        }
+    public static void main(String[] args) {
+        new View_Test();
     }
-
-
-
 }
-

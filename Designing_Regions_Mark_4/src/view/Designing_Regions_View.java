@@ -3,6 +3,8 @@
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -48,6 +50,8 @@ public class Designing_Regions_View extends JPanel {
 
     private JPanel panelCheckBox;
     private JButton bottonAddProvince;
+    private JPanel panelConectionEdges;
+    private static List<JCheckBox> checkBoxList;
 
     //Esta es la clase en la que se genera los botones y mapa
 
@@ -68,6 +72,8 @@ public class Designing_Regions_View extends JPanel {
         generatedMapPanel();
         generatedTitle();
         generatedProvinceCheckBox();
+
+        generatedProviceEdges();
     }
 
     private void generatedMapPanel() {
@@ -111,6 +117,9 @@ public class Designing_Regions_View extends JPanel {
 
 
     private void generatedProvinceCheckBox() {
+        checkBoxList = new ArrayList<>();
+
+
         panelCheckBox = new JPanel();
         panelCheckBox.setBounds(width-375,80,350,300);
         panelCheckBox.setLayout(new GridLayout(0, 2)); // One column, as many rows as needed
@@ -118,6 +127,7 @@ public class Designing_Regions_View extends JPanel {
 
         for (String province : test.keySet() ) {
             JCheckBox checkBox = new JCheckBox(province);
+            checkBoxList.add(checkBox);
             panelCheckBox.add(checkBox);
         }
 
@@ -131,8 +141,18 @@ public class Designing_Regions_View extends JPanel {
         
     }
 
+    private void generatedProviceEdges() {
+        panelConectionEdges = new JPanel();
+        panelConectionEdges.setBounds(width-375,425,350,400);
+        add(panelConectionEdges);
+    }
+
     public JButton getBottonAddProvince() {
         return bottonAddProvince;
+    }
+
+    public List<JCheckBox> getCheckBoxList() {
+        return checkBoxList;
     }
 
     
