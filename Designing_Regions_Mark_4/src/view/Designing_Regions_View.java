@@ -1,16 +1,24 @@
 ﻿package view;
 
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.util.Map;
 import java.awt.Color;
 import java.awt.Cursor;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 
+import province.Coordinates;
 import province.Province_Argentina;
 
 public class Designing_Regions_View extends JPanel {
@@ -21,9 +29,10 @@ public class Designing_Regions_View extends JPanel {
 
     private Province_Argentina province;
 
-    private Province_Argentina province2;
 
     private JPanel panelMap;
+
+    private JPanel title;
 
     private int widthPanel;
     private int heightPanel;
@@ -34,11 +43,19 @@ public class Designing_Regions_View extends JPanel {
 
     private Coordinate argentina;
 
+    private JTextField JTextTitulo;
+
+
+    private JPanel panelCheckBox;
+    private JButton bottonAddProvince;
+
     //Esta es la clase en la que se genera los botones y mapa
 
     public Designing_Regions_View(int width, int height){
         this.width = width;
         this.height = height;
+
+        province = new Province_Argentina();
 
         initialize();
     }
@@ -49,6 +66,8 @@ public class Designing_Regions_View extends JPanel {
         setBackground(Color.BLACK);
 
         generatedMapPanel();
+        generatedTitle();
+        generatedProvinceCheckBox();
     }
 
     private void generatedMapPanel() {
@@ -77,6 +96,46 @@ public class Designing_Regions_View extends JPanel {
         argentina = new Coordinate(-40.2, -63.616);
         mapViewer.setDisplayPosition(argentina, 5);
     }
+
+
+    private void generatedTitle() {
+        title = new JPanel();
+        title.setBounds(width-375,20,350,50);
+        JTextTitulo = new JTextField();
+		JTextTitulo.setFont(new Font("Unispace", Font.BOLD, 27));
+		JTextTitulo.setText("Designing Regions");
+		JTextTitulo.setEditable(false);
+		title.add(JTextTitulo);
+        add(title);
+    }
+
+
+    private void generatedProvinceCheckBox() {
+        panelCheckBox = new JPanel();
+        panelCheckBox.setBounds(width-375,80,350,300);
+        panelCheckBox.setLayout(new GridLayout(0, 2)); // One column, as many rows as needed
+        Map<String, Coordinates> test = province.getLocations();
+
+        for (String province : test.keySet() ) {
+            JCheckBox checkBox = new JCheckBox(province);
+            panelCheckBox.add(checkBox);
+        }
+
+        bottonAddProvince = new JButton("generated Province");
+        bottonAddProvince.setSize(100,100);
+
+        panelCheckBox.add(bottonAddProvince);
+
+
+        add(panelCheckBox);
+        
+    }
+
+    public JButton getBottonAddProvince() {
+        return bottonAddProvince;
+    }
+
+    
 
     
 
