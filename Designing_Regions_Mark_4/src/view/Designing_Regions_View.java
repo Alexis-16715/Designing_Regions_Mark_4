@@ -9,13 +9,14 @@ import java.util.Map;
 import java.awt.Color;
 import java.awt.Cursor;
 
+import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
@@ -36,8 +37,10 @@ public class Designing_Regions_View extends JPanel {
 
     private JPanel title;
 
-    private int widthPanel;
-    private int heightPanel;
+    private JPanel panelElementsLeft;
+
+    private int positionPanelX;
+    private int postionPanelY;
 
 
     private JMapViewer mapViewer;
@@ -52,6 +55,12 @@ public class Designing_Regions_View extends JPanel {
     private JButton bottonAddProvince;
     private JPanel panelConectionEdges;
     private static List<JCheckBox> checkBoxList;
+
+    private Map<String, Coordinates> provinceNameLocations;
+    private JPanel panelBottons;
+    private JButton bottonAddProvinceConnectionGraph;
+    private JButton bottonKruskal;
+    private JButton bottonReset;
 
     //Esta es la clase en la que se genera los botones y mapa
 
@@ -68,19 +77,31 @@ public class Designing_Regions_View extends JPanel {
         setLayout(null);
         setPreferredSize(new Dimension (width, height));
         setBackground(Color.BLACK);
-
+        
+        //Esto genera el panel y el mapa
         generatedMapPanel();
+
+        generatedPanel();
         generatedTitle();
         generatedProvinceCheckBox();
+        // generatedProviceEdges();
 
-        generatedProviceEdges();
+        generatedBottonsGraph();
+    }
+
+    private void generatedPanel() {
+        panelElementsLeft = new JPanel();
+        panelElementsLeft.setBackground(Color.black);
+        panelElementsLeft.setLayout(null);
+        panelElementsLeft.setBounds(width-415,0,500,height);
+        add(panelElementsLeft);
     }
 
     private void generatedMapPanel() {
         panelMap = new JPanel();
-        widthPanel = 50;
-        heightPanel = -5;
-        panelMap.setBounds(widthPanel, heightPanel, width/2, height);
+        positionPanelX = 20;
+        postionPanelY = -5;
+        panelMap.setBounds(positionPanelX, postionPanelY, width/2, height);
         panelMap.setBackground(Color.GREEN);
 
 
@@ -106,13 +127,14 @@ public class Designing_Regions_View extends JPanel {
 
     private void generatedTitle() {
         title = new JPanel();
-        title.setBounds(width-375,20,350,50);
+        title.setBounds(0,5,400,50);
         JTextTitulo = new JTextField();
 		JTextTitulo.setFont(new Font("Unispace", Font.BOLD, 27));
 		JTextTitulo.setText("Designing Regions");
 		JTextTitulo.setEditable(false);
+        JTextTitulo.setBorder(null);
 		title.add(JTextTitulo);
-        add(title);
+        panelElementsLeft.add(title);
     }
 
 
@@ -121,11 +143,11 @@ public class Designing_Regions_View extends JPanel {
 
 
         panelCheckBox = new JPanel();
-        panelCheckBox.setBounds(width-375,80,350,300);
-        panelCheckBox.setLayout(new GridLayout(0, 2)); // One column, as many rows as needed
-        Map<String, Coordinates> test = province.getLocations();
+        panelCheckBox.setBounds(0,60,400,300);
+        panelCheckBox.setLayout(new GridLayout(0, 2)); // Dos Columnas
+        provinceNameLocations = province.getLocations();
 
-        for (String province : test.keySet() ) {
+        for (String province : provinceNameLocations.keySet() ) {
             JCheckBox checkBox = new JCheckBox(province);
             checkBoxList.add(checkBox);
             panelCheckBox.add(checkBox);
@@ -137,15 +159,84 @@ public class Designing_Regions_View extends JPanel {
         panelCheckBox.add(bottonAddProvince);
 
 
-        add(panelCheckBox);
+        panelElementsLeft.add(panelCheckBox);
         
     }
 
-    private void generatedProviceEdges() {
-        panelConectionEdges = new JPanel();
-        panelConectionEdges.setBounds(width-375,425,350,400);
-        add(panelConectionEdges);
+    public void generProvinceEdge(List<String> selectPorvince){
+        usedListForProvinceEdges(selectPorvince);
     }
+
+    private void usedListForProvinceEdges(List<String> selectPorvince){
+        panelConectionEdges = new JPanel();
+        panelConectionEdges.setBounds(0,365,400,528);
+        panelElementsLeft.add(panelConectionEdges);
+        panelConectionEdges.setLayout(null); 
+
+        //Esto para que la position del panel quede bien
+
+        int positonX = 0;
+
+        for (String nameProvince : selectPorvince) {
+            JPanel rowPanel = new JPanel(new GridLayout(1, 1));
+            rowPanel.setBounds(0,positonX,400,20);
+            rowPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            positonX = positonX + 22;
+            JLabel label = new JLabel(nameProvince); // Create label with province name
+            rowPanel.add(label);
+        
+            JComboBox<String> comboBox1 = new JComboBox<>(createComboBoxProvince(selectPorvince, nameProvince)); // Create first JComboBox
+            rowPanel.add(comboBox1);
+        
+            JComboBox<Integer> comboBox2 = new JComboBox<>(createComboBoxModel()); // Create second JComboBox
+            rowPanel.add(comboBox2); 
+
+            panelConectionEdges.add(rowPanel);
+            
+        }
+        panelConectionEdges.revalidate();
+        panelConectionEdges.repaint();
+
+        panelElementsLeft.revalidate();
+        panelElementsLeft.repaint();
+
+    }
+
+    private DefaultComboBoxModel<String> createComboBoxProvince(List<String> selectPorvince, String nameProvince) {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        for (String province : selectPorvince ) {
+            if(nameProvince != province){
+                model.addElement(province);
+            }
+        }
+        return model;
+    }
+
+    private DefaultComboBoxModel<Integer> createComboBoxModel() {
+        DefaultComboBoxModel<Integer> model = new DefaultComboBoxModel<>();
+        for (int i = 1; i <= 10; i++) {
+            model.addElement(i);
+        }
+        return model;
+    }
+
+    private void generatedBottonsGraph() {
+        panelBottons = new JPanel();
+        panelBottons.setBounds(0,900,400,40);
+        panelElementsLeft.add(panelBottons);
+
+        bottonAddProvinceConnectionGraph = new JButton("Add the Connection");
+        panelBottons.add(bottonAddProvinceConnectionGraph);
+
+        bottonKruskal = new JButton("Run algorithm");
+        panelBottons.add(bottonKruskal);
+
+        bottonReset = new JButton("Reset");
+        panelBottons.add(bottonReset);
+
+    }
+
 
     public JButton getBottonAddProvince() {
         return bottonAddProvince;

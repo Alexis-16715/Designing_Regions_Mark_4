@@ -11,12 +11,9 @@ import javax.swing.JFrame;
 
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
-import org.openstreetmap.gui.jmapviewer.Layer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
-import org.openstreetmap.gui.jmapviewer.Style;
 import org.openstreetmap.gui.jmapviewer.interfaces.ICoordinate;
-import org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon;
 
 public class View_Test extends JFrame {
 
@@ -27,7 +24,7 @@ public class View_Test extends JFrame {
     }
 
     private class ProvinceMarker extends MapMarkerDot {
-        private final Province province;
+        private Province province;
 
         public ProvinceMarker(Province province) {
             super(province.getLatitude(), province.getLongitude());
