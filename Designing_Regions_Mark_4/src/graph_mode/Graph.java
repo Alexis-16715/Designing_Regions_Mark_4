@@ -25,7 +25,7 @@ public class Graph {
         return vertex;
     }
 
-    public void addEdge(Vertex source, Vertex destination, int weight) {
+    public void addEdge(Vertex source, Vertex destination, Integer weight) {
         int sourceIndex = source.getIndex();
 
         //Esto es para ver si todo esta inciado correctamente
@@ -40,12 +40,37 @@ public class Graph {
         return vertices;
     }
 
+    public Vertex getVertex (String nameProvince){
+        for (Vertex list : vertices) {
+            if(list.getLabel() == nameProvince){
+                return list;
+            }
+        }
+        return null;
+    }
+
     public List<List<Edge>> getAdjacencyList() {
         return adjacencyList;
     }
 
     public int getNumVertices() {
         return numVertices;
+    }
+    public List<String> getAllTheEdgesInStrings(){
+        List<String> test = new ArrayList<>();
+        for (int i = 0; i < numVertices; i++) {
+            if(adjacencyList.get(i).size() != 0){
+                System.out.print(vertices.get(i).getLabel() + " --> ");
+                test.add(vertices.get(i).getLabel());
+                List<Edge> edges = adjacencyList.get(i);
+                for (Edge edge : edges) {
+                    test.add(vertices.get(i).getLabel());
+                    System.out.print(vertices.get(edge.getDest().getIndex()).getLabel() + "(" + edge.getWeight() + ") ");
+                }
+                System.out.println();
+            }
+        }
+        return test;
     }
 
 

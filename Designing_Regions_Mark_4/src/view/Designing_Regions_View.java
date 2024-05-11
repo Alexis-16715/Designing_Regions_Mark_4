@@ -2,7 +2,11 @@
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +24,9 @@ import javax.swing.JTextField;
 
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
+import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
+import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
+import org.openstreetmap.gui.jmapviewer.interfaces.ICoordinate;
 
 import province.Coordinates;
 import province.Province_Argentina;
@@ -30,37 +37,39 @@ public class Designing_Regions_View extends JPanel {
     private int height;
 
 
-    private Province_Argentina province;
-
-
+    private JMapViewer mapViewer;
     private JPanel panelMap;
 
-    private JPanel title;
 
     private JPanel panelElementsLeft;
-
     private int positionPanelX;
     private int postionPanelY;
 
+    private JPanel title;
+    private JTextField JTextTitulo;
 
-    private JMapViewer mapViewer;
 
 
+    private Province_Argentina province;
     private Coordinate argentina;
 
-    private JTextField JTextTitulo;
 
 
     private JPanel panelCheckBox;
     private JButton bottonAddProvince;
     private JPanel panelConectionEdges;
     private static List<JCheckBox> checkBoxList;
-
     private Map<String, Coordinates> provinceNameLocations;
+
+
     private JPanel panelBottons;
     private JButton bottonAddProvinceConnectionGraph;
     private JButton bottonKruskal;
     private JButton bottonReset;
+
+
+    private List<JComboBox<String>> listComboBoxProvince;
+    private List<JComboBox<Integer>> listComboBoxWeight;
 
     //Esta es la clase en la que se genera los botones y mapa
 
@@ -84,9 +93,7 @@ public class Designing_Regions_View extends JPanel {
         generatedPanel();
         generatedTitle();
         generatedProvinceCheckBox();
-        // generatedProviceEdges();
 
-        generatedBottonsGraph();
     }
 
     private void generatedPanel() {
@@ -177,24 +184,35 @@ public class Designing_Regions_View extends JPanel {
 
         int positonX = 0;
 
+        listComboBoxProvince = new ArrayList<>();
+        listComboBoxWeight = new ArrayList<>();
+
         for (String nameProvince : selectPorvince) {
+            double latitude = provinceNameLocations.get(nameProvince).getLatitude();
+            double longitude = provinceNameLocations.get(nameProvince).getLongitude();
+            MapMarkerDot marker = new MapMarkerDot(latitude, longitude);
+            mapViewer.addMapMarker(marker);
             JPanel rowPanel = new JPanel(new GridLayout(1, 1));
             rowPanel.setBounds(0,positonX,400,20);
             rowPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
             positonX = positonX + 22;
-            JLabel label = new JLabel(nameProvince); // Create label with province name
+            JLabel label = new JLabel(nameProvince);
             rowPanel.add(label);
         
-            JComboBox<String> comboBox1 = new JComboBox<>(createComboBoxProvince(selectPorvince, nameProvince)); // Create first JComboBox
+            JComboBox<String> comboBox1 = new JComboBox<>(createComboBoxProvince(selectPorvince, nameProvince));
             rowPanel.add(comboBox1);
         
-            JComboBox<Integer> comboBox2 = new JComboBox<>(createComboBoxModel()); // Create second JComboBox
+            JComboBox<Integer> comboBox2 = new JComboBox<>(createComboBoxModel()); 
             rowPanel.add(comboBox2); 
+
+            listComboBoxProvince.add(comboBox1);
+            listComboBoxWeight.add(comboBox2);
 
             panelConectionEdges.add(rowPanel);
             
         }
+        generatedBottonsGraph();
         panelConectionEdges.revalidate();
         panelConectionEdges.repaint();
 
@@ -205,6 +223,7 @@ public class Designing_Regions_View extends JPanel {
 
     private DefaultComboBoxModel<String> createComboBoxProvince(List<String> selectPorvince, String nameProvince) {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        model.addElement("No selected");
         for (String province : selectPorvince ) {
             if(nameProvince != province){
                 model.addElement(province);
@@ -237,6 +256,45 @@ public class Designing_Regions_View extends JPanel {
 
     }
 
+    public void createMapPoligon(List<String> provinceToAddToMapViewer) {
+        List<Coordinate> coordinates = new ArrayList<Coordinate>();
+        for (String string : provinceToAddToMapViewer) {
+            double latitude = provinceNameLocations.get(string).getLatitude();
+            double longitude = provinceNameLocations.get(string).getLongitude();
+            coordinates.add(new Coordinate(latitude, longitude));
+        }
+        MapPolyLine polyLine = new MapPolyLine(coordinates);
+        mapViewer.addMapPolygon(polyLine);
+    }
+
+    class MapPolyLine extends MapPolygonImpl {
+        public MapPolyLine(List<? extends ICoordinate> points) {
+            super(null, null, points);
+        }
+    
+        @Override
+        public void paint(Graphics g, List<Point> points) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setColor(getColor());
+            g2d.setStroke(getStroke());
+            Path2D path = buildPath(points);
+            g2d.draw(path);
+            g2d.dispose();
+        }
+    
+        private Path2D buildPath(List<Point> points) {
+            Path2D path = new Path2D.Double();
+            if (points != null && points.size() > 0) {
+                Point firstPoint = points.get(0);
+                path.moveTo(firstPoint.getX(), firstPoint.getY());
+                for (Point p : points) {
+                    path.lineTo(p.getX(), p.getY());
+                }
+            }
+            return path;
+        }
+    }
+
 
     public JButton getBottonAddProvince() {
         return bottonAddProvince;
@@ -246,7 +304,26 @@ public class Designing_Regions_View extends JPanel {
         return checkBoxList;
     }
 
-    
+
+    public List<JComboBox<String>> getListComboBoxProvince() {
+        return listComboBoxProvince;
+    }
+
+    public List<JComboBox<Integer>> getListComboBoxWeight() {
+        return listComboBoxWeight;
+    }
+
+    public JButton getBottonAddProvinceConnectionGraph() {
+        return bottonAddProvinceConnectionGraph;
+    }
+
+    public JButton getBottonKruskal() {
+        return bottonKruskal;
+    }
+
+    public JButton getBottonReset() {
+        return bottonReset;
+    }
 
     
 

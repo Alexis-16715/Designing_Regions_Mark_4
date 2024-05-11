@@ -9,6 +9,7 @@ public class Main_View {
 
     private int width;
     private int height;
+
     private JFrame frame;
 
 
@@ -53,6 +54,14 @@ public class Main_View {
 
     public Designing_Regions_View getDesigningRegions() {
         return designingRegions;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
 }
