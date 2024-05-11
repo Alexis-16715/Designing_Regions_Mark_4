@@ -84,7 +84,7 @@ public class Kruskal_Mark_2 {
                 //Se agrega el caso arista con su peso
                 kruskalGraph.addEdge(src, dest, weight);
 
-                System.out.println(src.getLabel() + " --> " + dest.getLabel() + " == " + edge.getWeight());
+                // System.out.println(src.getLabel() + " --> " + dest.getLabel() + " == " + edge.getWeight());
 
                 //Unir los conjuntos de inicio y destino
                 kruskalHelper.union(src, dest);

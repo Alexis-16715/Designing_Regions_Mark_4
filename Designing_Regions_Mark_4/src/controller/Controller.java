@@ -41,6 +41,8 @@ public class Controller {
     private List<JComboBox<String>> listComboBoxProvince;
     private List<JComboBox<Integer>> listComboBoxWeight;
 
+    private Map <String, List<String>> mapArgentinaEdges;
+
 
     private List<String> ProvinceToAddToMapViewer;
 
@@ -81,6 +83,8 @@ public class Controller {
         listComboBoxWeight = designingRegionsView.getListComboBoxWeight();
 
 
+        bottonKruskal = designingRegionsView.getBottonKruskal();
+
         bottonAddProvinceConnectionGraph = designingRegionsView.getBottonAddProvinceConnectionGraph();
         bottonAddProvinceConnectionGraph.addActionListener(e -> {
             ProvinceToAddToMapViewer = new ArrayList<>();
@@ -94,14 +98,24 @@ public class Controller {
                     ProvinceToAddToMapViewer.add(dest);
                 }
             }
+            bottonKruskal.setEnabled(true);
             designingRegionsView.createMapPoligon(ProvinceToAddToMapViewer);
-            graph.print();
+            // graph.print();
         });
-
-        bottonKruskal = designingRegionsView.getBottonKruskal();
 
         bottonKruskal.addActionListener(e -> {
             krukGraph = kruskal.minimumSpanningTree(graph);
+            ProvinceToAddToMapViewer = new ArrayList<>();
+            mapArgentinaEdges = krukGraph.getAllTheEdgesInStrings();
+            for (Map.Entry<String, List<String>> entry : mapArgentinaEdges.entrySet() ) {
+                for (int i = 0; i < entry.getValue().size(); i++) {
+                    ProvinceToAddToMapViewer.add(entry.getKey().toString());
+                    ProvinceToAddToMapViewer.add(entry.getValue().get(i).toString());
+                }
+
+            }
+
+            designingRegionsView.createMapPoligon(ProvinceToAddToMapViewer);
         });
 
 

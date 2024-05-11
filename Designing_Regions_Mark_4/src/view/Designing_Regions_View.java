@@ -249,6 +249,7 @@ public class Designing_Regions_View extends JPanel {
         panelBottons.add(bottonAddProvinceConnectionGraph);
 
         bottonKruskal = new JButton("Run algorithm");
+        bottonKruskal.setEnabled(false);
         panelBottons.add(bottonKruskal);
 
         bottonReset = new JButton("Reset");
@@ -257,6 +258,7 @@ public class Designing_Regions_View extends JPanel {
     }
 
     public void createMapPoligon(List<String> provinceToAddToMapViewer) {
+        mapViewer.removeAllMapPolygons();
         List<Coordinate> coordinates = new ArrayList<Coordinate>();
         for (String string : provinceToAddToMapViewer) {
             double latitude = provinceNameLocations.get(string).getLatitude();

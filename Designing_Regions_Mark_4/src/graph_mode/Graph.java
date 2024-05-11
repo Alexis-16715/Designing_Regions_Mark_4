@@ -1,7 +1,9 @@
 package graph_mode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 
@@ -56,21 +58,21 @@ public class Graph {
     public int getNumVertices() {
         return numVertices;
     }
-    public List<String> getAllTheEdgesInStrings(){
-        List<String> test = new ArrayList<>();
+    public Map <String, List<String>> getAllTheEdgesInStrings(){
+        Map <String, List<String>> mapArgentinaEdges = new HashMap<>();
+        List<String> edgesProvinces = new ArrayList<>();
         for (int i = 0; i < numVertices; i++) {
+            
+            edgesProvinces.add(vertices.get(i).getLabel());
             if(adjacencyList.get(i).size() != 0){
-                System.out.print(vertices.get(i).getLabel() + " --> ");
-                test.add(vertices.get(i).getLabel());
                 List<Edge> edges = adjacencyList.get(i);
                 for (Edge edge : edges) {
-                    test.add(vertices.get(i).getLabel());
-                    System.out.print(vertices.get(edge.getDest().getIndex()).getLabel() + "(" + edge.getWeight() + ") ");
+                    edgesProvinces.add(vertices.get(edge.getDest().getIndex()).getLabel());
                 }
-                System.out.println();
             }
+            mapArgentinaEdges.put(vertices.get(i).getLabel(), edgesProvinces);
         }
-        return test;
+        return mapArgentinaEdges;
     }
 
 
