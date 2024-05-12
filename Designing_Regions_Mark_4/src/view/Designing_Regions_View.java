@@ -261,6 +261,7 @@ public class Designing_Regions_View extends JPanel {
         mapViewer.removeAllMapPolygons();
         List<Coordinate> coordinates = new ArrayList<Coordinate>();
         for (String string : provinceToAddToMapViewer) {
+            System.out.println(provinceNameLocations.get(string));
             double latitude = provinceNameLocations.get(string).getLatitude();
             double longitude = provinceNameLocations.get(string).getLongitude();
             coordinates.add(new Coordinate(latitude, longitude));
@@ -297,6 +298,12 @@ public class Designing_Regions_View extends JPanel {
         }
     }
 
+    public void createStringOfTheGraph() {
+        panelConectionEdges.removeAll();
+        panelConectionEdges.revalidate();
+        panelConectionEdges.repaint();
+    }
+
 
     public JButton getBottonAddProvince() {
         return bottonAddProvince;
@@ -326,7 +333,6 @@ public class Designing_Regions_View extends JPanel {
     public JButton getBottonReset() {
         return bottonReset;
     }
-
     
 
 }

@@ -59,18 +59,17 @@ public class Graph {
         return numVertices;
     }
     public Map <String, List<String>> getAllTheEdgesInStrings(){
-        Map <String, List<String>> mapArgentinaEdges = new HashMap<>();
-        List<String> edgesProvinces = new ArrayList<>();
+        Map <String, List<String>> mapArgentinaEdges = new HashMap<String, List<String>>();
         for (int i = 0; i < numVertices; i++) {
-            
-            edgesProvinces.add(vertices.get(i).getLabel());
-            if(adjacencyList.get(i).size() != 0){
+            List<String> edgesProvinces = new ArrayList<>();
+            if (adjacencyList.get(i).size() != 0) {
                 List<Edge> edges = adjacencyList.get(i);
                 for (Edge edge : edges) {
+                    edgesProvinces.add(vertices.get(edge.getSrc().getIndex()).getLabel());
                     edgesProvinces.add(vertices.get(edge.getDest().getIndex()).getLabel());
                 }
+                mapArgentinaEdges.put(vertices.get(i).getLabel(), edgesProvinces);
             }
-            mapArgentinaEdges.put(vertices.get(i).getLabel(), edgesProvinces);
         }
         return mapArgentinaEdges;
     }

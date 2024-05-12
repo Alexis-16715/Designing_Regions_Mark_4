@@ -107,14 +107,22 @@ public class Controller {
             krukGraph = kruskal.minimumSpanningTree(graph);
             ProvinceToAddToMapViewer = new ArrayList<>();
             mapArgentinaEdges = krukGraph.getAllTheEdgesInStrings();
+            krukGraph.print();
+            System.err.println("------------------------------------------------------------------------");
             for (Map.Entry<String, List<String>> entry : mapArgentinaEdges.entrySet() ) {
-                for (int i = 0; i < entry.getValue().size(); i++) {
-                    ProvinceToAddToMapViewer.add(entry.getKey().toString());
-                    ProvinceToAddToMapViewer.add(entry.getValue().get(i).toString());
+                if(entry.getValue().size() != 0){
+                    for (int i = 0; i < entry.getValue().size(); i++) {
+                        if (entry.getKey().toString() != entry.getValue().get(i).toString()){
+                            System.err.println(entry.getValue().get(i).toString());
+                            System.err.println("------------------------------------------------------------------------");
+                            // ProvinceToAddToMapViewer.add(entry.getKey().toString());
+                            ProvinceToAddToMapViewer.add(entry.getValue().get(i).toString());
+                        }
+                    }
                 }
 
             }
-
+            designingRegionsView.createStringOfTheGraph();
             designingRegionsView.createMapPoligon(ProvinceToAddToMapViewer);
         });
 
