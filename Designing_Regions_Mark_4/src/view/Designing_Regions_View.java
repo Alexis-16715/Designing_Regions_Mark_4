@@ -65,7 +65,6 @@ public class Designing_Regions_View extends JPanel {
     private JPanel panelBottons;
     private JButton bottonAddProvinceConnectionGraph;
     private JButton bottonKruskal;
-    private JButton bottonReset;
 
 
     private List<JComboBox<String>> listComboBoxProvince;
@@ -252,9 +251,6 @@ public class Designing_Regions_View extends JPanel {
         bottonKruskal.setEnabled(false);
         panelBottons.add(bottonKruskal);
 
-        bottonReset = new JButton("Reset");
-        panelBottons.add(bottonReset);
-
     }
 
     public void createMapPoligon(List<String> provinceToAddToMapViewer) {
@@ -372,10 +368,6 @@ public class Designing_Regions_View extends JPanel {
 
     public JButton getBottonKruskal() {
         return bottonKruskal;
-    }
-
-    public JButton getBottonReset() {
-        return bottonReset;
     }
     
 

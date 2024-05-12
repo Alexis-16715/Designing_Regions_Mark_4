@@ -33,7 +33,6 @@ public class Controller {
 
     private JButton bottonAddProvinceConnectionGraph;
     private JButton bottonKruskal;
-    private JButton bottonReset;
 
     private List<JComboBox<String>> listComboBoxProvince;
     private List<JComboBox<Integer>> listComboBoxWeight;
@@ -106,7 +105,6 @@ public class Controller {
 
             bottonKruskal.setEnabled(true);
             designingRegionsView.createMapPoligon(ProvinceToAddToMapViewer);
-            graph.print();
         });
 
         bottonKruskal.addActionListener(e -> {
@@ -125,12 +123,6 @@ public class Controller {
             
             designingRegionsView.createStringOfTheGraph(krukGraph.generateAdjacencyMap(), graph.generateAdjacencyMap());
             designingRegionsView.createMapPoligon(ProvinceToAddToMapViewer);
-        });
-
-
-        bottonReset = designingRegionsView.getBottonReset();
-
-        bottonReset.addActionListener(e -> {
         });
 
 
