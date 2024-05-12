@@ -3,20 +3,40 @@ package test;
 import graph_mode.Graph;
 import graph_mode.Vertex;
 import model.Kruskal_Mark_2;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
+public class Kruskal_Test_Mark_2 {
 
-public class KrusklaTest_Mark_2 {
-    private Graph graphTest;
+    @Test
+    public void testMinimumSpanningTree() {
+        Graph graphTest = createGraph();
+        Kruskal_Mark_2 kruskal = new Kruskal_Mark_2();
+        
 
-    private Graph mst;
+        Graph mst = kruskal.minimumSpanningTree(graphTest);
 
-    public KrusklaTest_Mark_2(){
-        makeTheGraph();
-        printTheGraph();
+        assertNotNull(mst);
+
+        //Verifcamos que la cantidad de Aristas de tanto del grafo original como el grafo kruskal sean diferentes, si son iguales entocnes habira algo mal
+        assertNotEquals(countEdges(graphTest), countEdges(mst));
+
+        // Verifcamos que el numero de Arista sea correcta
+        assertEquals(9, countEdges(mst));
     }
-    
-    public void makeTheGraph(){
-        graphTest = new Graph();
+
+    private int countEdges(Graph graph) {
+        int totalEdges = 0;
+        for (int i = 0; i < graph.getNumVertices(); i++) {
+            totalEdges += graph.getAdjacencyList().get(i).size();
+        }
+        // Simple contador, "Nothing more, nothing else, just perfect"
+        return totalEdges;
+    }
+
+    // Aqui se crea el grafo con las arista que tiene que tener
+    private Graph createGraph() {
+        Graph graphTest = new Graph();
         Vertex v0 = graphTest.addVertex("0");
         Vertex v1 = graphTest.addVertex("1");
         Vertex v2 = graphTest.addVertex("2");
@@ -27,8 +47,6 @@ public class KrusklaTest_Mark_2 {
         Vertex v7 = graphTest.addVertex("7");
         Vertex v8 = graphTest.addVertex("8");
         Vertex v9 = graphTest.addVertex("9");
-
-
 
         graphTest.addEdge(v0, v1, 2);
         graphTest.addEdge(v0, v3, 3);
@@ -50,33 +68,8 @@ public class KrusklaTest_Mark_2 {
         graphTest.addEdge(v7, v9, 14);
         graphTest.addEdge(v7, v8, 15);
         graphTest.addEdge(v5, v4, 20);
-    }
 
-
-    public void printTheGraph(){
-        System.out.println("Grafo Original");
-        graphTest.print();
-
-        // Crea una instacia para la clase de Algoritmo
-        Kruskal_Mark_2 kruskal = new Kruskal_Mark_2();
-
-        System.out.println("--------------");
-
-        mst= new Graph();
-
-        // Calcula el algortimo del Arbol
-        mst = kruskal.minimumSpanningTree(graphTest);
-
-        System.out.println("--------------");
-
-        // Imprimi el resultado
-        System.out.println("Kruskal:");
-        mst.print();
-    }
-
-    public static void main(String[] args) {
-        KrusklaTest_Mark_2 test = new KrusklaTest_Mark_2();
-
+        return graphTest;
     }
 }
 

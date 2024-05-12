@@ -31,7 +31,6 @@ import org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon;
 
 import province.Coordinates;
 import province.Province_Argentina;
-import view.View_Test.MapPolyLine;
 
 public class Designing_Regions_View extends JPanel {
 
