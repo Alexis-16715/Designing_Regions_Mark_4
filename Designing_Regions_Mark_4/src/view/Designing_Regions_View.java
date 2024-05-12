@@ -27,7 +27,6 @@ import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
 import org.openstreetmap.gui.jmapviewer.interfaces.ICoordinate;
-import org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon;
 
 import province.Coordinates;
 import province.Province_Argentina;

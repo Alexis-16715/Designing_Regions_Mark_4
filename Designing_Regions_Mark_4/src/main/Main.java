@@ -12,6 +12,7 @@ public class Main {
         Main_View view = new Main_View();
         Graph graph = new Graph();
         Kruskal_Mark_2 Kruskal = new Kruskal_Mark_2();
+        @SuppressWarnings("unused")
         Controller controller = new Controller(view.getDesigningRegions(), view, graph, Kruskal);
     }
 

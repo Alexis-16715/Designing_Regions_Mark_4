@@ -1,8 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +15,7 @@ import view.Main_View;
 
 public class Controller {
 
+    @SuppressWarnings("unused")
     private Main_View view;
 
     private Designing_Regions_View designingRegionsView;
@@ -31,8 +30,6 @@ public class Controller {
     private List<JCheckBox> checkBoxList;
 
     private List<String> ProvinceAddArgentina;
-
-    private Map<String,List<String>> test;
 
     private JButton bottonAddProvinceConnectionGraph;
     private JButton bottonKruskal;
