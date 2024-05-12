@@ -87,37 +87,29 @@ public class Graph {
                     edgesProvinces.add(destLabel);
                 }
                 
-                // Add the edges of this vertex to the map
+                // Agrega las arista al mapa
                 mapArgentinaEdges.put(vertices.get(i).getLabel(), edgesProvinces);
             }
         }
         return mapArgentinaEdges;
     }
 
-
-    public Map<String, List<String>> generateAdjacencyMap() {
-        Map<String, List<String>> adjacencyMap = new HashMap<>();
-        
+    public List<String> generateAdjacencyMap() {
+        List<String> representation = new ArrayList<>();
+    
         for (int i = 0; i < numVertices; i++) {
-            if (!adjacencyList.get(i).isEmpty()) {
-                String sourceLabel = vertices.get(i).getLabel();
-                List<String> adjacentVertices = new ArrayList<>();
-                
-                for (Edge edge : adjacencyList.get(i)) {
-                    int destIndex = edge.getDest().getIndex();
-                    String destLabel = vertices.get(destIndex).getLabel();
-                    int weight = edge.getWeight();
-                    
-                   
-                    adjacentVertices.add(destLabel + "(" + weight + ")");
+            if (adjacencyList.get(i).size() != 0) {
+                StringBuilder line = new StringBuilder();
+                line.append(vertices.get(i).getLabel()).append(" --> ");
+                List<Edge> edges = adjacencyList.get(i);
+                for (Edge edge : edges) {
+                    line.append(vertices.get(edge.getDest().getIndex()).getLabel())
+                        .append("(").append(edge.getWeight()).append(") ");
                 }
-                
-                
-                adjacencyMap.put(sourceLabel, adjacentVertices);
+                representation.add(line.toString());
             }
         }
-        
-        return adjacencyMap;
+        return representation;
     }
 
 

@@ -270,14 +270,45 @@ public class Designing_Regions_View extends JPanel {
                 
                 coordinates.add(new Coordinate(latitude, longitude));
                 //Dont ask who or why (i have to debut this futher)
+                //El problema esta en las dos versiones tanto MapPolygonImpl como Mapolyline, no tengo idea de porque todavia 
                 coordinates.add(new Coordinate(latitude, longitude));
             }
         }
-        MapPolygon polyLine = new MapPolygonImpl(coordinates);
+        // MapPolygon polyLine = new MapPolygonImpl(coordinates);
+        MapPolyLine polyLine = new MapPolyLine(coordinates);
         mapViewer.addMapPolygon(polyLine);
     }
 
-    public void createStringOfTheGraph(Map<String, List<String>> kruskal, Map<String, List<String>> originalGraph) {
+    public class MapPolyLine extends MapPolygonImpl {
+        public MapPolyLine(List<? extends ICoordinate> points) {
+            super(null, null, points);
+        }
+    
+        @Override
+        public void paint(Graphics g, List<Point> points) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setColor(getColor());
+            g2d.setStroke(getStroke());
+            Path2D path = buildPath(points);
+            g2d.draw(path);
+            g2d.dispose();
+        }
+    
+        private Path2D buildPath(List<Point> points) {
+            Path2D path = new Path2D.Double();
+            if (points != null && points.size() >= 0) {
+                Point firstPoint = points.get(0);
+                path.moveTo(firstPoint.getX(), firstPoint.getY());
+                for (int i = 1; i < points.size(); i++) { // Start from index 1
+                    Point p = points.get(i);
+                    path.lineTo(p.getX(), p.getY());
+                }
+            }
+            return path;
+        }
+    }
+
+    public void createStringOfTheGraph(List<String> kruskal, List<String> originalGraph) {
         panelConectionEdges.removeAll();
         panelConectionEdges.revalidate();
         panelConectionEdges.repaint();
@@ -292,32 +323,31 @@ public class Designing_Regions_View extends JPanel {
         panelConectionEdges.repaint();
     }
 
-    private void addGraphToPanel(Map<String, List<String>> graph, String header) {
-        int positionY = panelConectionEdges.getComponentCount() * 20; // Start position after existing components
+    
+    private void addGraphToPanel(List<String> graphRepresentation, String header) {
+    
+        int positionY = panelConectionEdges.getComponentCount() * 20;; // Start position for the first row
+    
         JPanel headerPanel = new JPanel(new GridLayout(1, 1));
         JLabel headerLabel = new JLabel(header);
         headerPanel.add(headerLabel);
         headerPanel.setVisible(true);
         headerPanel.setBounds(0, positionY, 400, 20);
-
-
         panelConectionEdges.add(headerPanel);
     
-        for (Map.Entry<String, List<String>> entry : graph.entrySet()) {
-            JPanel rowPanel = new JPanel(new GridLayout(1, 1));
+        positionY += 20; // Se incrementa para que el texto quede bien
     
-            if (!entry.getValue().isEmpty()) {
-                StringBuilder labelText = new StringBuilder(entry.getKey() + " --> ");
-                for (String adjVertex : entry.getValue()) {
-                    labelText.append(adjVertex).append(", ");
-                }
-                JLabel label = new JLabel(labelText.toString());
-                rowPanel.setBounds(0, positionY, 400, 20);
-                rowPanel.add(label);
-                panelConectionEdges.add(rowPanel);
-                positionY += 20; // Incrementa la posicion para la siguiente columna
-            }
+        for (String line : graphRepresentation) {
+            JPanel rowPanel = new JPanel(new GridLayout(1, 1));
+            JLabel label = new JLabel(line.toString());
+            rowPanel.setBounds(0, positionY, 400, 20);
+            rowPanel.add(label);
+            panelConectionEdges.add(rowPanel);
+            positionY += 20; // Incrementa la position para la siguiente fila
         }
+    
+        panelConectionEdges.revalidate(); // RRevalidamos los componetes para que se vean
+        panelConectionEdges.repaint(); // Repintamos del panel para que se vea
     }
 
 
