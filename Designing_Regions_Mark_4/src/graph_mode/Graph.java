@@ -83,7 +83,6 @@ public class Graph {
                     String destLabel = vertices.get(destIndex).getLabel();
                     
                     // Arega la destinacion a la lista
-                    System.out.println(srcLabel + destLabel);
                     edgesProvinces.add(srcLabel);
                     edgesProvinces.add(destLabel);
                 }
@@ -95,21 +94,6 @@ public class Graph {
         return mapArgentinaEdges;
     }
 
-    // public Map<String, List<String>> generateAdjacencyMap() {
-    //     Map<String, List<String>> adjacencyMap = new HashMap<>();
-    //     for (int i = 0; i < numVertices; i++) {
-    //         if (adjacencyList.get(i).size() != 0) {
-    //             String sourceLabel = vertices.get(i).getLabel();
-    //             List<String> adjacentVertices = new ArrayList<>();
-    //             for (Edge edge : adjacencyList.get(i)) {
-    //                 String destLabel = vertices.get(edge.getDest().getIndex()).getLabel();
-    //                 adjacentVertices.add(destLabel + "(" + edge.getWeight() + ")");
-    //             }
-    //             adjacencyMap.put(sourceLabel, adjacentVertices);
-    //         }
-    //     }
-    //     return adjacencyMap;
-    // }
 
     public Map<String, List<String>> generateAdjacencyMap() {
         Map<String, List<String>> adjacencyMap = new HashMap<>();
@@ -124,11 +108,11 @@ public class Graph {
                     String destLabel = vertices.get(destIndex).getLabel();
                     int weight = edge.getWeight();
                     
-                    // Append destination label and weight to adjacentVertices
+                   
                     adjacentVertices.add(destLabel + "(" + weight + ")");
                 }
                 
-                // Put the source vertex and its adjacent vertices with weights into the map
+                
                 adjacencyMap.put(sourceLabel, adjacentVertices);
             }
         }

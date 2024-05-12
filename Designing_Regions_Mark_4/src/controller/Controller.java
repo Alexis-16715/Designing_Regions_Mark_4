@@ -100,21 +100,6 @@ public class Controller {
             }
 
             mapArgentinaEdges = graph.getAllTheEdgesInStrings();
-            // for (Map.Entry<String, List<String>> entry : mapArgentinaEdges.entrySet()) {
-            //     String key = entry.getKey();
-            //     List<String> values = entry.getValue();
-            //     if (!values.isEmpty()) {
-            //         for (String value : values) {
-            //             if (!key.equals(value)) {
-            //                 // System.out.println(key);
-            //                 // ProvinceToAddToMapViewer.add(key);
-            //                 System.out.println(value);
-            //                 ProvinceToAddToMapViewer.add(value);
-            //             }
-            //         }
-            //     }
-            // }
-
             for (Map.Entry<String, List<String>> entry : mapArgentinaEdges.entrySet()) {
                 List<String> values = entry.getValue();
                 for (String value : values) {
@@ -129,17 +114,15 @@ public class Controller {
 
         bottonKruskal.addActionListener(e -> {
             krukGraph = kruskal.minimumSpanningTree(graph);
+            System.err.println("---------------------");
+            krukGraph.print();
             ProvinceToAddToMapViewer = new ArrayList<>();
             mapArgentinaEdges = krukGraph.getAllTheEdgesInStrings();
-            for (Map.Entry<String, List<String>> entry : mapArgentinaEdges.entrySet() ) {
-                if(entry.getValue().size() != 0){
-                    for (int i = 0; i < entry.getValue().size(); i++) {
-                        if (entry.getKey().toString() != entry.getValue().get(i).toString()){
-                            ProvinceToAddToMapViewer.add(entry.getValue().get(i).toString());
-                        }
-                    }
+            for (Map.Entry<String, List<String>> entry : mapArgentinaEdges.entrySet()) {
+                List<String> values = entry.getValue();
+                for (String value : values) {
+                    ProvinceToAddToMapViewer.add(value);
                 }
-
             }
 
             
