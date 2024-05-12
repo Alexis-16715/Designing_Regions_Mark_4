@@ -49,10 +49,11 @@ public class View_Test extends JFrame {
     
         private Path2D buildPath(List<Point> points) {
             Path2D path = new Path2D.Double();
-            if (points != null && points.size() > 0) {
+            if (points != null && points.size() >= 0) {
                 Point firstPoint = points.get(0);
                 path.moveTo(firstPoint.getX(), firstPoint.getY());
-                for (Point p : points) {
+                for (int i = 1; i < points.size(); i++) { // Start from index 1
+                    Point p = points.get(i);
                     path.lineTo(p.getX(), p.getY());
                 }
             }
@@ -77,8 +78,8 @@ public class View_Test extends JFrame {
         List<Coordinate> coordinates = new ArrayList<Coordinate>();
         coordinates.add(new Coordinate(50, 10));
         coordinates.add(new Coordinate(52, 15));
-        coordinates.add(new Coordinate(55, 15));
-        coordinates.add(new Coordinate(-28.4696, -65.7852));
+        // coordinates.add(new Coordinate(55, 15));
+        // coordinates.add(new Coordinate(-28.4696, -65.7852));
 
         MapPolyLine polyLine = new MapPolyLine(coordinates);
         mapViewer.addMapPolygon(polyLine);

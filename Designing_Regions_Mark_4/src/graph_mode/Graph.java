@@ -30,6 +30,13 @@ public class Graph {
     public void addEdge(Vertex source, Vertex destination, Integer weight) {
         int sourceIndex = source.getIndex();
 
+        for (Edge edge : adjacencyList.get(sourceIndex)) {
+            if (edge.getDest().equals(destination)) {
+                // Edge already exists, no need to add it again
+                return;
+            }
+        }
+
         //Esto es para ver si todo esta inciado correctamente
         if (adjacencyList.size() <= sourceIndex) {
             adjacencyList.add(new ArrayList<>());
@@ -58,20 +65,75 @@ public class Graph {
     public int getNumVertices() {
         return numVertices;
     }
-    public Map <String, List<String>> getAllTheEdgesInStrings(){
-        Map <String, List<String>> mapArgentinaEdges = new HashMap<String, List<String>>();
+
+    public Map<String, List<String>> getAllTheEdgesInStrings() {
+        Map<String, List<String>> mapArgentinaEdges = new HashMap<>();
+        
         for (int i = 0; i < numVertices; i++) {
             List<String> edgesProvinces = new ArrayList<>();
-            if (adjacencyList.get(i).size() != 0) {
+            
+            if (!adjacencyList.get(i).isEmpty()) {
                 List<Edge> edges = adjacencyList.get(i);
+                
                 for (Edge edge : edges) {
-                    edgesProvinces.add(vertices.get(edge.getSrc().getIndex()).getLabel());
-                    edgesProvinces.add(vertices.get(edge.getDest().getIndex()).getLabel());
+                    int srcIndex = edge.getSrc().getIndex();
+                    int destIndex = edge.getDest().getIndex();
+                    
+                    String srcLabel = vertices.get(srcIndex).getLabel();
+                    String destLabel = vertices.get(destIndex).getLabel();
+                    
+                    // Arega la destinacion a la lista
+                    System.out.println(srcLabel + destLabel);
+                    edgesProvinces.add(srcLabel);
+                    edgesProvinces.add(destLabel);
                 }
+                
+                // Add the edges of this vertex to the map
                 mapArgentinaEdges.put(vertices.get(i).getLabel(), edgesProvinces);
             }
         }
         return mapArgentinaEdges;
+    }
+
+    // public Map<String, List<String>> generateAdjacencyMap() {
+    //     Map<String, List<String>> adjacencyMap = new HashMap<>();
+    //     for (int i = 0; i < numVertices; i++) {
+    //         if (adjacencyList.get(i).size() != 0) {
+    //             String sourceLabel = vertices.get(i).getLabel();
+    //             List<String> adjacentVertices = new ArrayList<>();
+    //             for (Edge edge : adjacencyList.get(i)) {
+    //                 String destLabel = vertices.get(edge.getDest().getIndex()).getLabel();
+    //                 adjacentVertices.add(destLabel + "(" + edge.getWeight() + ")");
+    //             }
+    //             adjacencyMap.put(sourceLabel, adjacentVertices);
+    //         }
+    //     }
+    //     return adjacencyMap;
+    // }
+
+    public Map<String, List<String>> generateAdjacencyMap() {
+        Map<String, List<String>> adjacencyMap = new HashMap<>();
+        
+        for (int i = 0; i < numVertices; i++) {
+            if (!adjacencyList.get(i).isEmpty()) {
+                String sourceLabel = vertices.get(i).getLabel();
+                List<String> adjacentVertices = new ArrayList<>();
+                
+                for (Edge edge : adjacencyList.get(i)) {
+                    int destIndex = edge.getDest().getIndex();
+                    String destLabel = vertices.get(destIndex).getLabel();
+                    int weight = edge.getWeight();
+                    
+                    // Append destination label and weight to adjacentVertices
+                    adjacentVertices.add(destLabel + "(" + weight + ")");
+                }
+                
+                // Put the source vertex and its adjacent vertices with weights into the map
+                adjacencyMap.put(sourceLabel, adjacentVertices);
+            }
+        }
+        
+        return adjacencyMap;
     }
 
 

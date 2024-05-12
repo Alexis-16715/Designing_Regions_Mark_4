@@ -27,9 +27,11 @@ import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
 import org.openstreetmap.gui.jmapviewer.interfaces.ICoordinate;
+import org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon;
 
 import province.Coordinates;
 import province.Province_Argentina;
+import view.View_Test.MapPolyLine;
 
 public class Designing_Regions_View extends JPanel {
 
@@ -261,47 +263,61 @@ public class Designing_Regions_View extends JPanel {
         mapViewer.removeAllMapPolygons();
         List<Coordinate> coordinates = new ArrayList<Coordinate>();
         for (String string : provinceToAddToMapViewer) {
-            System.out.println(provinceNameLocations.get(string));
-            double latitude = provinceNameLocations.get(string).getLatitude();
-            double longitude = provinceNameLocations.get(string).getLongitude();
-            coordinates.add(new Coordinate(latitude, longitude));
+            if(provinceNameLocations.get(string) != null){
+                double latitude = provinceNameLocations.get(string).getLatitude();
+                double longitude = provinceNameLocations.get(string).getLongitude();
+
+                
+                coordinates.add(new Coordinate(latitude, longitude));
+                //Dont ask who or why (i have to debut this futher)
+                coordinates.add(new Coordinate(latitude, longitude));
+            }
         }
-        MapPolyLine polyLine = new MapPolyLine(coordinates);
+        MapPolygon polyLine = new MapPolygonImpl(coordinates);
         mapViewer.addMapPolygon(polyLine);
     }
 
-    class MapPolyLine extends MapPolygonImpl {
-        public MapPolyLine(List<? extends ICoordinate> points) {
-            super(null, null, points);
-        }
-    
-        @Override
-        public void paint(Graphics g, List<Point> points) {
-            Graphics2D g2d = (Graphics2D) g.create();
-            g2d.setColor(getColor());
-            g2d.setStroke(getStroke());
-            Path2D path = buildPath(points);
-            g2d.draw(path);
-            g2d.dispose();
-        }
-    
-        private Path2D buildPath(List<Point> points) {
-            Path2D path = new Path2D.Double();
-            if (points != null && points.size() > 0) {
-                Point firstPoint = points.get(0);
-                path.moveTo(firstPoint.getX(), firstPoint.getY());
-                for (Point p : points) {
-                    path.lineTo(p.getX(), p.getY());
-                }
-            }
-            return path;
-        }
-    }
-
-    public void createStringOfTheGraph() {
+    public void createStringOfTheGraph(Map<String, List<String>> kruskal, Map<String, List<String>> originalGraph) {
         panelConectionEdges.removeAll();
         panelConectionEdges.revalidate();
         panelConectionEdges.repaint();
+        // Esto es para mostrar el grafo Original
+        addGraphToPanel(originalGraph, "This is the original Graph");
+
+        // Esto es para mostrar el grafo de Kruskal
+        addGraphToPanel(kruskal, "This is the graph of Kruskal");
+
+
+        panelConectionEdges.revalidate();
+        panelConectionEdges.repaint();
+    }
+
+    private void addGraphToPanel(Map<String, List<String>> graph, String header) {
+        int positionY = panelConectionEdges.getComponentCount() * 20; // Start position after existing components
+        JPanel headerPanel = new JPanel(new GridLayout(1, 1));
+        JLabel headerLabel = new JLabel(header);
+        headerPanel.add(headerLabel);
+        headerPanel.setVisible(true);
+        headerPanel.setBounds(0, positionY, 400, 20);
+
+
+        panelConectionEdges.add(headerPanel);
+    
+        for (Map.Entry<String, List<String>> entry : graph.entrySet()) {
+            JPanel rowPanel = new JPanel(new GridLayout(1, 1));
+    
+            if (!entry.getValue().isEmpty()) {
+                StringBuilder labelText = new StringBuilder(entry.getKey() + " --> ");
+                for (String adjVertex : entry.getValue()) {
+                    labelText.append(adjVertex).append(", ");
+                }
+                JLabel label = new JLabel(labelText.toString());
+                rowPanel.setBounds(0, positionY, 400, 20);
+                rowPanel.add(label);
+                panelConectionEdges.add(rowPanel);
+                positionY += 20; // Incrementa la posicion para la siguiente columna
+            }
+        }
     }
 
 
