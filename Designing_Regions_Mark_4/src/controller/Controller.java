@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 
-import graph_mode.Graph;
+import graph_model.Graph;
 import model.Kruskal_Mark_2;
 import view.Designing_Regions_View;
 import view.Main_View;
@@ -85,13 +85,11 @@ public class Controller {
         bottonAddProvinceConnectionGraph.addActionListener(e -> {
             ProvinceToAddToMapViewer = new ArrayList<>();
             for(int i = 0; i < listComboBoxWeight.size(); i++){
-                if (listComboBoxProvince.get(i).getSelectedItem().toString() != "No selected"){
+                if (listComboBoxProvince.get(i).getSelectedItem().toString() != "No seleccionado"){
                     String src = ProvinceAddArgentina.get(i);
                     String dest = listComboBoxProvince.get(i).getSelectedItem().toString();
                     Integer weight = listComboBoxWeight.get(i).getSelectedIndex()+1;
                     graph.addEdge(graph.getVertex(src), graph.getVertex(dest), weight);
-                    // ProvinceToAddToMapViewer.add(src);
-                    // ProvinceToAddToMapViewer.add(dest);
                 }
             }
 
@@ -109,8 +107,6 @@ public class Controller {
 
         bottonKruskal.addActionListener(e -> {
             krukGraph = kruskal.minimumSpanningTree(graph);
-            System.err.println("---------------------");
-            krukGraph.print();
             ProvinceToAddToMapViewer = new ArrayList<>();
             mapArgentinaEdges = krukGraph.getAllTheEdgesInStrings();
             for (Map.Entry<String, List<String>> entry : mapArgentinaEdges.entrySet()) {

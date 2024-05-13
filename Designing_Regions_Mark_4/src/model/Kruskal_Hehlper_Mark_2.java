@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import graph_mode.Vertex;
+import graph_model.Vertex;
 
 public class Kruskal_Hehlper_Mark_2 {
 

@@ -136,7 +136,7 @@ public class Designing_Regions_View extends JPanel {
         title.setBounds(0,5,400,50);
         JTextTitulo = new JTextField();
 		JTextTitulo.setFont(new Font("Unispace", Font.BOLD, 27));
-		JTextTitulo.setText("Designing Regions");
+		JTextTitulo.setText("Diseño de regiones");
 		JTextTitulo.setEditable(false);
         JTextTitulo.setBorder(null);
 		title.add(JTextTitulo);
@@ -159,7 +159,7 @@ public class Designing_Regions_View extends JPanel {
             panelCheckBox.add(checkBox);
         }
 
-        bottonAddProvince = new JButton("generated Province");
+        bottonAddProvince = new JButton("Generar Provincia");
         bottonAddProvince.setSize(100,100);
 
         panelCheckBox.add(bottonAddProvince);
@@ -222,7 +222,7 @@ public class Designing_Regions_View extends JPanel {
 
     private DefaultComboBoxModel<String> createComboBoxProvince(List<String> selectPorvince, String nameProvince) {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-        model.addElement("No selected");
+        model.addElement("No seleccionado");
         for (String province : selectPorvince ) {
             if(nameProvince != province){
                 model.addElement(province);
@@ -244,10 +244,10 @@ public class Designing_Regions_View extends JPanel {
         panelBottons.setBounds(0,900,400,40);
         panelElementsLeft.add(panelBottons);
 
-        bottonAddProvinceConnectionGraph = new JButton("Add the Connection");
+        bottonAddProvinceConnectionGraph = new JButton("Agregar la conexión");
         panelBottons.add(bottonAddProvinceConnectionGraph);
 
-        bottonKruskal = new JButton("Run algorithm");
+        bottonKruskal = new JButton("Ejecutar algoritmo");
         bottonKruskal.setEnabled(false);
         panelBottons.add(bottonKruskal);
 
@@ -307,10 +307,10 @@ public class Designing_Regions_View extends JPanel {
         panelConectionEdges.revalidate();
         panelConectionEdges.repaint();
         // Esto es para mostrar el grafo Original
-        addGraphToPanel(originalGraph, "This is the original Graph");
+        addGraphToPanel(originalGraph, "Este es el gráfico original.");
 
         // Esto es para mostrar el grafo de Kruskal
-        addGraphToPanel(kruskal, "This is the graph of Kruskal");
+        addGraphToPanel(kruskal, "Este es el gráfico de Kruskal.");
 
 
         panelConectionEdges.revalidate();
@@ -320,7 +320,7 @@ public class Designing_Regions_View extends JPanel {
     
     private void addGraphToPanel(List<String> graphRepresentation, String header) {
     
-        int positionY = panelConectionEdges.getComponentCount() * 20;; // Start position for the first row
+        int positionY = panelConectionEdges.getComponentCount() * 20;; // Posición inicial para la primera fila.
     
         JPanel headerPanel = new JPanel(new GridLayout(1, 1));
         JLabel headerLabel = new JLabel(header);

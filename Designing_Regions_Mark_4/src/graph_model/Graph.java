@@ -1,4 +1,4 @@
-package graph_mode;
+package graph_model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +20,11 @@ public class Graph {
     }
 
     public Vertex addVertex(String label) {
+        for (Vertex existingVertex : vertices) {
+            if (existingVertex.getLabel().equals(label)) {
+                throw new IllegalArgumentException("Vertex with label '" + label + "' already exists");
+            }
+        }
         Vertex vertex = new Vertex(label, numVertices);
         vertices.add(vertex);
         adjacencyList.add(new ArrayList<>());
@@ -30,11 +35,23 @@ public class Graph {
     public void addEdge(Vertex source, Vertex destination, Integer weight) {
         int sourceIndex = source.getIndex();
 
+        if(weight <= 0){
+            throw new IllegalArgumentException("La gráfica no puede ser igual o inferior a 0");
+        }
+
         for (Edge edge : adjacencyList.get(sourceIndex)) {
             if (edge.getDest().equals(destination)) {
                 // Edge already exists, no need to add it again
-                return;
+                throw new IllegalArgumentException("Este Arista ya fue agregado al gráfico.");
             }
+        }
+
+        if(source.equals(destination)){
+            throw new IllegalArgumentException("El gráfico no aceptará que el Origen y el Destino sean iguales");
+        }
+
+        if (!vertices.contains(source) || !vertices.contains(destination)) {
+            throw new IllegalArgumentException("El vertice de origen o destino no existe en el gráfico");
         }
 
         //Esto es para ver si todo esta inciado correctamente
@@ -47,6 +64,10 @@ public class Graph {
 
     public List<Vertex> getVertices() {
         return vertices;
+    }
+
+    public void setVertices(List<Vertex> vertices) {
+        this.vertices = vertices;
     }
 
     public Vertex getVertex (String nameProvince){

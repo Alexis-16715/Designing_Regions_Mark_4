@@ -1,7 +1,7 @@
 package main;
 
 import controller.Controller;
-import graph_mode.Graph;
+import graph_model.Graph;
 import model.Kruskal_Mark_2;
 import view.Main_View;
 

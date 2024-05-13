@@ -1,9 +1,11 @@
 package test;
 
-import graph_mode.Graph;
-import graph_mode.Vertex;
 import model.Kruskal_Mark_2;
 import org.junit.jupiter.api.Test;
+
+import graph_model.Graph;
+import graph_model.Vertex;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class Kruskal_Test_Mark_2 {

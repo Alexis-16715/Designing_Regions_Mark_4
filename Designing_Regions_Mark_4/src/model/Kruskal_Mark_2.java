@@ -7,9 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import graph_mode.Edge;
-import graph_mode.Graph;
-import graph_mode.Vertex;
+import graph_model.Edge;
+import graph_model.Graph;
+import graph_model.Vertex;
 
 
 
@@ -22,14 +22,14 @@ public class Kruskal_Mark_2 {
     private ArrayList<Edge> sortedEdges;
 
     //Esto es el Vertex o Vertice
-    private Set<Vertex> vertices;
+    private List<Vertex> vertices;
 
 
 
 
     public Kruskal_Mark_2 (){
         sortedEdges = new ArrayList<>();
-        vertices = new HashSet<>();
+        vertices = new ArrayList<>();
     }
 
     //Esto es para comparar el peso de las aristas o Edges, se podria implementar en edges pero es mejor tenerlo que para referencia
@@ -65,6 +65,7 @@ public class Kruskal_Mark_2 {
                 sortedEdges.addAll(edges);
             }
         }
+        kruskalGraph.setVertices(vertices);
         Collections.sort(sortedEdges, new weightComparator());
         
        //Inicializar conjunto disjunto para detección de ciclo

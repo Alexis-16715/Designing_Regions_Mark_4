@@ -1,4 +1,4 @@
-package graph_mode;
+package graph_model;
 
 
 public class Edge {
