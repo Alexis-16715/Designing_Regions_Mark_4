@@ -87,45 +87,15 @@ public class Graph {
         return numVertices;
     }
 
-    // public Map<String, List<String>> getAllTheEdgesInStrings() {
-    //     Map<String, List<String>> mapArgentinaEdges = new HashMap<>();
-        
-    //     for (int i = 0; i < numVertices; i++) {
-    //         List<String> edgesProvinces = new ArrayList<>();
-            
-    //         if (!adjacencyList.get(i).isEmpty()) {
-    //             List<Edge> edges = adjacencyList.get(i);
-                
-    //             for (Edge edge : edges) {
-    //                 int srcIndex = edge.getSrc().getIndex();
-    //                 int destIndex = edge.getDest().getIndex();
-                    
-    //                 String srcLabel = vertices.get(srcIndex).getLabel();
-    //                 String destLabel = vertices.get(destIndex).getLabel();
-                    
-    //                 // Arega la destinacion a la lista
-    //                 edgesProvinces.add(srcLabel);
-    //                 edgesProvinces.add(destLabel);
-    //             }
-                
-    //             // Agrega las arista al mapa
-    //             mapArgentinaEdges.put(vertices.get(i).getLabel(), edgesProvinces);
-    //         }
-    //     }
-    //     return mapArgentinaEdges;
-    // }
-
     public List<String> getAllTheEdgesInStrings() {
         List<String> representation = new ArrayList<>();
     
         for (int i = 0; i < numVertices; i++) {
-            if (adjacencyList.get(i).size() != 0) {
-                List<Edge> edges = adjacencyList.get(i);
+            List<Edge> edges = adjacencyList.get(i);
                 for (Edge edge : edges) {
-                    representation.add(vertices.get(edge.getDest().getIndex()).getLabel());
                     representation.add(vertices.get(edge.getSrc().getIndex()).getLabel());
+                    representation.add(vertices.get(edge.getDest().getIndex()).getLabel());
                 }
-            }
         }
         return representation;
     }

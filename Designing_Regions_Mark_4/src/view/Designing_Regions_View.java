@@ -27,6 +27,7 @@ import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
 import org.openstreetmap.gui.jmapviewer.interfaces.ICoordinate;
+import org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon;
 
 import province.Coordinates;
 import province.Province_Argentina;
@@ -261,7 +262,6 @@ public class Designing_Regions_View extends JPanel {
                 double latitude = provinceNameLocations.get(string).getLatitude();
                 double longitude = provinceNameLocations.get(string).getLongitude();
 
-                
                 coordinates.add(new Coordinate(latitude, longitude));
                 //Dont ask who or why (i have to debut this futher)
                 //El problema esta en las dos versiones tanto MapPolygonImpl como Mapolyline, no tengo idea de porque todavia 
@@ -296,7 +296,7 @@ public class Designing_Regions_View extends JPanel {
             if (points != null && points.size() >= 0) {
                 Point firstPoint = points.get(0);
                 path.moveTo(firstPoint.getX(), firstPoint.getY());
-                for (int i = 1; i < points.size(); i++) { // Start from index 1
+                for (int i = 0; i < points.size(); i++) { 
                     Point p = points.get(i);
                     path.lineTo(p.getX(), p.getY());
                 }
