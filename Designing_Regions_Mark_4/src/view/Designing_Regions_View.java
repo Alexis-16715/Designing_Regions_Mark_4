@@ -271,6 +271,9 @@ public class Designing_Regions_View extends JPanel {
         // MapPolygon polyLine = new MapPolygonImpl(coordinates);
         MapPolyLine polyLine = new MapPolyLine(coordinates);
         mapViewer.addMapPolygon(polyLine);
+
+        mapViewer.revalidate();
+        mapViewer.repaint();
     }
 
     public class MapPolyLine extends MapPolygonImpl {

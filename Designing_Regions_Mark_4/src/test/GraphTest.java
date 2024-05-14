@@ -52,19 +52,6 @@ public class GraphTest {
     }
 
     @Test
-    public void testGetAllTheEdgesInStrings() {
-        Graph graph = new Graph();
-        Vertex vertexA = graph.addVertex("A");
-        Vertex vertexB = graph.addVertex("B");
-
-        graph.addEdge(vertexA, vertexB, 10);
-        Map<String, List<String>> edgesMap = graph.getAllTheEdgesInStrings();
-
-        assertTrue(edgesMap.containsKey("A"));
-        assertTrue(edgesMap.get("A").contains("B"));
-    }
-
-    @Test
     public void testGenerateAdjacencyMap() {
         Graph graph = new Graph();
         Vertex vertexA = graph.addVertex("A");

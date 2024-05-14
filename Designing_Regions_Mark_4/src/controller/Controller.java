@@ -37,10 +37,9 @@ public class Controller {
     private List<JComboBox<String>> listComboBoxProvince;
     private List<JComboBox<Integer>> listComboBoxWeight;
 
-    private Map <String, List<String>> mapArgentinaEdges;
+    private List<String> ListArgentinaEdges;
 
 
-    private List<String> ProvinceToAddToMapViewer;
 
     public Controller (Designing_Regions_View designingRegionsView, Main_View view,  Graph graph, Kruskal_Mark_2 kruskal){
         this.view = view;
@@ -83,7 +82,6 @@ public class Controller {
 
         bottonAddProvinceConnectionGraph = designingRegionsView.getBottonAddProvinceConnectionGraph();
         bottonAddProvinceConnectionGraph.addActionListener(e -> {
-            ProvinceToAddToMapViewer = new ArrayList<>();
             for(int i = 0; i < listComboBoxWeight.size(); i++){
                 if (listComboBoxProvince.get(i).getSelectedItem().toString() != "No seleccionado"){
                     String src = ProvinceAddArgentina.get(i);
@@ -93,32 +91,17 @@ public class Controller {
                 }
             }
 
-            mapArgentinaEdges = graph.getAllTheEdgesInStrings();
-            for (Map.Entry<String, List<String>> entry : mapArgentinaEdges.entrySet()) {
-                List<String> values = entry.getValue();
-                for (String value : values) {
-                    ProvinceToAddToMapViewer.add(value);
-                }
-            }
-
+            ListArgentinaEdges = graph.getAllTheEdgesInStrings();
             bottonKruskal.setEnabled(true);
-            designingRegionsView.createMapPoligon(ProvinceToAddToMapViewer);
+            designingRegionsView.createMapPoligon(ListArgentinaEdges);
         });
 
         bottonKruskal.addActionListener(e -> {
             krukGraph = kruskal.minimumSpanningTree(graph);
-            ProvinceToAddToMapViewer = new ArrayList<>();
-            mapArgentinaEdges = krukGraph.getAllTheEdgesInStrings();
-            for (Map.Entry<String, List<String>> entry : mapArgentinaEdges.entrySet()) {
-                List<String> values = entry.getValue();
-                for (String value : values) {
-                    ProvinceToAddToMapViewer.add(value);
-                }
-            }
+            ListArgentinaEdges = krukGraph.getAllTheEdgesInStrings();
 
-            
             designingRegionsView.createStringOfTheGraph(krukGraph.generateAdjacencyMap(), graph.generateAdjacencyMap());
-            designingRegionsView.createMapPoligon(ProvinceToAddToMapViewer);
+            designingRegionsView.createMapPoligon(ListArgentinaEdges);
         });
 
 
