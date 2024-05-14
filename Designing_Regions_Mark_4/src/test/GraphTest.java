@@ -8,7 +8,6 @@ import graph_model.Vertex;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
-import java.util.Map;
 
 public class GraphTest {
 
