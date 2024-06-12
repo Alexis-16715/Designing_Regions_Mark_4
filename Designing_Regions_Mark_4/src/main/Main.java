@@ -2,7 +2,7 @@ package main;
 
 import controller.Controller;
 import graph_model.Graph;
-import model.Kruskal_Mark_2;
+import model.Minimum_Generating_Tree;
 import view.Main_View;
 
 public class Main {
@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Main_View view = new Main_View();
         Graph graph = new Graph();
-        Kruskal_Mark_2 Kruskal = new Kruskal_Mark_2();
+        Minimum_Generating_Tree Kruskal = new Minimum_Generating_Tree();
         @SuppressWarnings("unused")
         Controller controller = new Controller(view.getDesigningRegions(), view, graph, Kruskal);
     }

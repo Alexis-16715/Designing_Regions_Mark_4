@@ -11,7 +11,7 @@ import graph_model.Vertex;
 
 
 
-public class Kruskal_Mark_2 {
+public class Minimum_Generating_Tree {
 
     //Esto es el grafo
     private Graph kruskalGraph;
@@ -25,7 +25,7 @@ public class Kruskal_Mark_2 {
 
 
 
-    public Kruskal_Mark_2 (){
+    public Minimum_Generating_Tree (){
         sortedEdges = new ArrayList<>();
         vertices = new ArrayList<>();
     }
@@ -68,7 +68,7 @@ public class Kruskal_Mark_2 {
         
        //Inicializar conjunto disjunto para detección de ciclo
 
-        Kruskal_Hehlper_Mark_2 kruskalHelper = new Kruskal_Hehlper_Mark_2(new ArrayList<>(vertices));
+        Find_Union kruskalHelper = new Find_Union(new ArrayList<>(vertices));
 
 
         //Iterar sobre Aristas ordenados

@@ -1,5 +1,6 @@
 package controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 
+
 import graph_model.Graph;
-import model.Kruskal_Mark_2;
+import model.Minimum_Generating_Tree;
 import view.Designing_Regions_View;
 import view.Main_View;
 
@@ -20,7 +22,7 @@ public class Controller {
     private Designing_Regions_View designingRegionsView;
 
     private Graph graph;
-    private Kruskal_Mark_2 kruskal;
+    private Minimum_Generating_Tree kruskal;
 
     private JButton bottonAddProvince;
 
@@ -40,7 +42,8 @@ public class Controller {
 
 
 
-    public Controller (Designing_Regions_View designingRegionsView, Main_View view,  Graph graph, Kruskal_Mark_2 kruskal){
+
+    public Controller (Designing_Regions_View designingRegionsView, Main_View view,  Graph graph, Minimum_Generating_Tree kruskal){
         this.view = view;
         this.designingRegionsView = designingRegionsView;
         this.graph = graph;
@@ -96,11 +99,15 @@ public class Controller {
         });
 
         bottonKruskal.addActionListener(e -> {
-            krukGraph = kruskal.minimumSpanningTree(graph);
-            ListArgentinaEdges = krukGraph.getAllTheEdgesInStrings();
+            if(graph.isConnected()){
+                krukGraph = kruskal.minimumSpanningTree(graph);
+                ListArgentinaEdges = krukGraph.getAllTheEdgesInStrings();
 
-            designingRegionsView.createStringOfTheGraph(krukGraph.generateAdjacencyMap(), graph.generateAdjacencyMap());
-            designingRegionsView.createMapPoligon(ListArgentinaEdges);
+                designingRegionsView.createStringOfTheGraph(krukGraph.generateAdjacencyMap(), graph.generateAdjacencyMap());
+                designingRegionsView.createMapPoligon(ListArgentinaEdges);
+            } else {
+                System.err.println("sssss");
+            }
         });
 
 

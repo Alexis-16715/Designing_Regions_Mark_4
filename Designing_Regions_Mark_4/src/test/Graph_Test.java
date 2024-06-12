@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-public class GraphTest {
+public class Graph_Test {
 
     @Test
     public void testAddVertex() {

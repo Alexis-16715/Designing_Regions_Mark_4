@@ -6,13 +6,13 @@ import java.util.Map;
 
 import graph_model.Vertex;
 
-public class Kruskal_Hehlper_Mark_2 {
+public class Find_Union {
 
 
     private Map<Vertex, Vertex> parentMap;
 
 
-    public Kruskal_Hehlper_Mark_2(ArrayList<Vertex> arrayList) {
+    public Find_Union(ArrayList<Vertex> arrayList) {
         parentMap = new HashMap<>();
         for (Vertex vertex : arrayList) {
             parentMap.put(vertex, vertex);

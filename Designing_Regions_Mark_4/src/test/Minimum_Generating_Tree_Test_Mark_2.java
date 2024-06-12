@@ -1,6 +1,6 @@
 package test;
 
-import model.Kruskal_Mark_2;
+import model.Minimum_Generating_Tree;
 import org.junit.jupiter.api.Test;
 
 import graph_model.Graph;
@@ -8,12 +8,12 @@ import graph_model.Vertex;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Kruskal_Test_Mark_2 {
+public class Minimum_Generating_Tree_Test_Mark_2 {
 
     @Test
     public void testMinimumSpanningTree() {
         Graph graphTest = createGraph();
-        Kruskal_Mark_2 kruskal = new Kruskal_Mark_2();
+        Minimum_Generating_Tree kruskal = new Minimum_Generating_Tree();
         
 
         Graph mst = kruskal.minimumSpanningTree(graphTest);

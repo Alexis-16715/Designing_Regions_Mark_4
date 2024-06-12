@@ -262,9 +262,8 @@ public class Designing_Regions_View extends JPanel {
                 double longitude = provinceNameLocations.get(string).getLongitude();
 
                 coordinates.add(new Coordinate(latitude, longitude));
-                //Dont ask who or why (i have to debut this futher)
-                //El problema esta en las dos versiones tanto MapPolygonImpl como Mapolyline, no tengo idea de porque todavia 
                 coordinates.add(new Coordinate(latitude, longitude));
+
             }
         }
         // MapPolygon polyLine = new MapPolygonImpl(coordinates);
@@ -371,6 +370,7 @@ public class Designing_Regions_View extends JPanel {
     public JButton getBottonKruskal() {
         return bottonKruskal;
     }
+
     
 
 }
