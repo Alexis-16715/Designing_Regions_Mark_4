@@ -68,7 +68,7 @@ public class Minimum_Generating_Tree {
         
        //Inicializar conjunto disjunto para detección de ciclo
 
-        Find_Union kruskalHelper = new Find_Union(new ArrayList<>(vertices));
+        Find_Union findUnion = new Find_Union(new ArrayList<>(vertices));
 
 
         //Iterar sobre Aristas ordenados
@@ -78,7 +78,7 @@ public class Minimum_Generating_Tree {
             int weight = edge.getWeight();
 
             // Comprobar si incluir esta arista forma un ciclo
-            if (kruskalHelper.find(src) != kruskalHelper.find(dest)){
+            if (findUnion.find(src) != findUnion.find(dest)){
 
                 //Se agrega el caso arista con su peso
                 kruskalGraph.addEdge(src, dest, weight);
@@ -86,7 +86,7 @@ public class Minimum_Generating_Tree {
                 // System.out.println(src.getLabel() + " --> " + dest.getLabel() + " == " + edge.getWeight());
 
                 //Unir los conjuntos de inicio y destino
-                kruskalHelper.union(src, dest);
+                findUnion.union(src, dest);
             }
         }
 
