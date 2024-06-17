@@ -30,7 +30,7 @@ public class Main_View {
 
         frame = new JFrame();
 
-        frame.setTitle("Designing Regions Argentina");
+        frame.setTitle("Diseña Regiones Argentina");
         
 
         ImageIcon icon = new ImageIcon(image);

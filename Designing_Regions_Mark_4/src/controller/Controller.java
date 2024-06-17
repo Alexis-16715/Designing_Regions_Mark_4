@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-
+import javax.swing.JOptionPane;
 
 import graph_model.Graph;
 import model.Minimum_Generating_Tree;
@@ -106,7 +106,7 @@ public class Controller {
                 designingRegionsView.createStringOfTheGraph(krukGraph.generateAdjacencyMap(), graph.generateAdjacencyMap());
                 designingRegionsView.createMapPoligon(ListArgentinaEdges);
             } else {
-                System.err.println("sssss");
+                JOptionPane.showMessageDialog(null, "El grafo no es Conexo: ", "Recuerde que el grafo tiene que estar conectado", JOptionPane.ERROR_MESSAGE);
             }
         });
 

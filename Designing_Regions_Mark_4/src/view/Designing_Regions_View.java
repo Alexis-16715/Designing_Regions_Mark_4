@@ -262,7 +262,7 @@ public class Designing_Regions_View extends JPanel {
                 double longitude = provinceNameLocations.get(string).getLongitude();
 
                 coordinates.add(new Coordinate(latitude, longitude));
-                coordinates.add(new Coordinate(latitude, longitude));
+                // coordinates.add(new Coordinate(latitude, longitude));
 
             }
         }
