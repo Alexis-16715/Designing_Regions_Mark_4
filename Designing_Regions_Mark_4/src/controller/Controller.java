@@ -109,16 +109,6 @@ public class Controller {
             } else{
                 JOptionPane.showMessageDialog(null, "El grafo no es Conexo: ", "Recuerde que el grafo tiene que estar conectado", JOptionPane.ERROR_MESSAGE);
             }
-            
-            // if(graph.isConnected()){
-            //     krukGraph = kruskal.minimumSpanningTree(graph);
-            //     ListArgentinaEdges = krukGraph.getAllTheEdgesInStrings();
-
-            //     designingRegionsView.createStringOfTheGraph(krukGraph.generateAdjacencyMap(), graph.generateAdjacencyMap());
-            //     designingRegionsView.createMapPoligon(ListArgentinaEdges);
-            // } else {
-            //     JOptionPane.showMessageDialog(null, "El grafo no es Conexo: ", "Recuerde que el grafo tiene que estar conectado", JOptionPane.ERROR_MESSAGE);
-            // }
         });
 
 

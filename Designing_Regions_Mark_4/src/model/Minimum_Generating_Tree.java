@@ -89,7 +89,7 @@ public class Minimum_Generating_Tree {
                 numAristas++;
 
                 //Unir los conjuntos de inicio y destino
-                findUnion.union(src.getIndex(), dest.getIndex());
+                findUnion.union(src, dest);
             }
         }
 

@@ -86,39 +86,6 @@ public class Graph {
         return numVertices;
     }
 
-    public boolean isConnected() {
-        if (numVertices == 0) {
-            return true;
-        }
-
-        boolean[] visited = new boolean[numVertices];
-        Stack<Vertex> stack = new Stack<>();
-        stack.push(vertices.get(0));
-
-        while (!stack.isEmpty()) {
-            Vertex vertex = stack.pop();
-            int vertexIndex = vertex.getIndex();
-
-            if (!visited[vertexIndex]) {
-                visited[vertexIndex] = true;
-
-                for (Edge edge : adjacencyList.get(vertexIndex)) {
-                    if (!visited[edge.getDest().getIndex()]) {
-                        stack.push(edge.getDest());
-                    }
-                }
-            }
-        }
-
-        for (boolean visitStatus : visited) {
-            if (!visitStatus) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
 
     public List<String> getAllTheEdgesInStrings() {
         List<String> representation = new ArrayList<>();
