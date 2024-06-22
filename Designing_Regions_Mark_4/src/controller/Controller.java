@@ -99,15 +99,26 @@ public class Controller {
         });
 
         bottonKruskal.addActionListener(e -> {
-            if(graph.isConnected()){
-                krukGraph = kruskal.minimumSpanningTree(graph);
+            krukGraph = kruskal.minimumSpanningTree(graph);
+            if(krukGraph !=null ){
                 ListArgentinaEdges = krukGraph.getAllTheEdgesInStrings();
 
                 designingRegionsView.createStringOfTheGraph(krukGraph.generateAdjacencyMap(), graph.generateAdjacencyMap());
                 designingRegionsView.createMapPoligon(ListArgentinaEdges);
-            } else {
+
+            } else{
                 JOptionPane.showMessageDialog(null, "El grafo no es Conexo: ", "Recuerde que el grafo tiene que estar conectado", JOptionPane.ERROR_MESSAGE);
             }
+            
+            // if(graph.isConnected()){
+            //     krukGraph = kruskal.minimumSpanningTree(graph);
+            //     ListArgentinaEdges = krukGraph.getAllTheEdgesInStrings();
+
+            //     designingRegionsView.createStringOfTheGraph(krukGraph.generateAdjacencyMap(), graph.generateAdjacencyMap());
+            //     designingRegionsView.createMapPoligon(ListArgentinaEdges);
+            // } else {
+            //     JOptionPane.showMessageDialog(null, "El grafo no es Conexo: ", "Recuerde que el grafo tiene que estar conectado", JOptionPane.ERROR_MESSAGE);
+            // }
         });
 
 

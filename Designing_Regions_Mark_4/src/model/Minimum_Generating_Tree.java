@@ -64,7 +64,9 @@ public class Minimum_Generating_Tree {
             }
         }
         kruskalGraph.setVertices(vertices);
-        Collections.sort(sortedEdges, new weightComparator());
+        // Collections.sort(sortedEdges, new weightComparator());
+        Collections.sort(sortedEdges, Comparator.comparingInt(Edge::getWeight));
+        int numAristas = 0;
         
        //Inicializar conjunto disjunto para detección de ciclo
 
@@ -78,16 +80,23 @@ public class Minimum_Generating_Tree {
             int weight = edge.getWeight();
 
             // Comprobar si incluir esta arista forma un ciclo
-            if (findUnion.find(src) != findUnion.find(dest)){
+            if (!findUnion.connected(src, dest)){
 
                 //Se agrega el caso arista con su peso
                 kruskalGraph.addEdge(src, dest, weight);
 
                 // System.out.println(src.getLabel() + " --> " + dest.getLabel() + " == " + edge.getWeight());
+                numAristas++;
 
                 //Unir los conjuntos de inicio y destino
-                findUnion.union(src, dest);
+                findUnion.union(src.getIndex(), dest.getIndex());
             }
+        }
+
+        // Verificar si el Arbol tiene exactamente V-1 aristas
+        if (vertices.size() - 1 != numAristas) {
+            System.out.println("El grafo debe ser conexo.");
+            return null;
         }
 
         //Retornamos el grafo todo armado con su arista corresponientes 
