@@ -2,20 +2,22 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import graph_model.Vertex;
 
 public class Find_Union {
 
 
-    private Map<Vertex, Vertex> parentMap;
+    private Map<Vertex, Vertex> parentMap = new HashMap<>();
 
 
-    public Find_Union(ArrayList<Vertex> arrayList) {
-        parentMap = new HashMap<>();
-        for (Vertex vertex : arrayList) {
-            parentMap.put(vertex, vertex);
+    public Find_Union(Set<Vertex> arrayList) {
+
+        for (Vertex vertice : arrayList) {
+            parentMap.put(vertice, vertice);
         }
 
     }
@@ -37,7 +39,56 @@ public class Find_Union {
     }
 
     public boolean connected(Vertex vertex1, Vertex vertex2) {
-        return find(vertex1) == find(vertex2);
+        Vertex fatherSrc = find(vertex1);
+        Vertex fatherDest = find(vertex2);
+
+        // Verifica si los padres son iguales
+        return fatherSrc.equals(fatherDest);
     }
 
 }
+
+// public class Find_Union {
+//     private Map<Vertex, Vertex> parent;
+//     private Map<Vertex, Integer> rank;
+
+//     public Find_Union(Set<Vertex> vertices) {
+//         parent = new HashMap<>();
+//         rank = new HashMap<>();
+//         for (Vertex vertex : vertices) {
+//             parent.put(vertex, vertex);
+//             rank.put(vertex, 0);
+//         }
+//     }
+
+//     public Vertex find(Vertex vertex) {
+//         if (parent.get(vertex) != vertex) {
+//             parent.put(vertex, find(parent.get(vertex))); // Path compression
+//         }
+//         return parent.get(vertex);
+//     }
+
+//     public void union(Vertex vertex1, Vertex vertex2) {
+//         Vertex root1 = find(vertex1);
+//         Vertex root2 = find(vertex2);
+
+//         if (root1 != root2) {
+//             if (rank.get(root1) > rank.get(root2)) {
+//                 parent.put(root2, root1);
+//             } else if (rank.get(root1) < rank.get(root2)) {
+//                 parent.put(root1, root2);
+//             } else {
+//                 parent.put(root2, root1);
+//                 rank.put(root1, rank.get(root1) + 1);
+//             }
+//         }
+//     }
+
+//     public boolean connected(Vertex vertex1, Vertex vertex2) {
+//         Vertex fatherSrc = find(vertex1);
+//         Vertex fatherDest = find(vertex2);
+
+//         // Verifica si los padres son iguales
+//         return fatherSrc.equals(fatherDest);
+//     }
+// }

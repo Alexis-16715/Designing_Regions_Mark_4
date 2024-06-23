@@ -1,5 +1,6 @@
 package graph_model;
 
+import java.util.Objects;
 
 public class Edge {
     private Vertex src;
@@ -23,5 +24,17 @@ public class Edge {
     public int getWeight() {
         return weight;
     }
+
+    @Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Edge other = (Edge) obj;
+		return Objects.equals(dest, other.dest) && Objects.equals(src, other.src) && weight == other.weight;
+	}
 }
 

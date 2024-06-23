@@ -1,21 +1,21 @@
 ﻿package graph_model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Stack;
-
+import java.util.Map;
 
 
 public class Graph {
     private int numVertices;
     private List<Vertex> vertices;
 
-    private List<List<Edge>> adjacencyList;
+    private Map<Vertex, List<Edge>> adjacencyList;
 
     public Graph() {
         this.numVertices = 0;
         this.vertices = new ArrayList<>();
-        this.adjacencyList = new ArrayList<>();
+        this.adjacencyList = new HashMap<>();
     }
 
     public Vertex addVertex(String label) {
@@ -26,19 +26,17 @@ public class Graph {
         }
         Vertex vertex = new Vertex(label, numVertices);
         vertices.add(vertex);
-        adjacencyList.add(new ArrayList<>());
+        adjacencyList.put(vertex, new ArrayList<>());
         numVertices++;
         return vertex;
     }
 
     public void addEdge(Vertex source, Vertex destination, Integer weight) {
-        int sourceIndex = source.getIndex();
-
         if(weight <= 0){
             throw new IllegalArgumentException("La gráfica no puede ser igual o inferior a 0");
         }
 
-        for (Edge edge : adjacencyList.get(sourceIndex)) {
+        for (Edge edge : adjacencyList.get(source)) {
             if (edge.getDest().equals(destination)) {
                 // Edge already exists, no need to add it again
                 throw new IllegalArgumentException("Este Arista ya fue agregado al gráfico.");
@@ -52,13 +50,8 @@ public class Graph {
         if (!vertices.contains(source) || !vertices.contains(destination)) {
             throw new IllegalArgumentException("El vertice de origen o destino no existe en el gráfico");
         }
-
-        //Esto es para ver si todo esta inciado correctamente
-        if (adjacencyList.size() <= sourceIndex) {
-            adjacencyList.add(new ArrayList<>());
-        }
         //Todo listo y se agrega el grafo
-        adjacencyList.get(sourceIndex).add(new Edge(source,destination, weight));
+        adjacencyList.get(source).add(new Edge(source,destination, weight));
     }
 
     public List<Vertex> getVertices() {
@@ -78,7 +71,7 @@ public class Graph {
         return null;
     }
 
-    public List<List<Edge>> getAdjacencyList() {
+    public Map<Vertex, List<Edge>> getAdjacencyList() {
         return adjacencyList;
     }
 
@@ -89,47 +82,44 @@ public class Graph {
 
     public List<String> getAllTheEdgesInStrings() {
         List<String> representation = new ArrayList<>();
-    
-        for (int i = 0; i < numVertices; i++) {
-            List<Edge> edges = adjacencyList.get(i);
-                for (Edge edge : edges) {
-                    representation.add(vertices.get(edge.getSrc().getIndex()).getLabel());
-                    representation.add(vertices.get(edge.getDest().getIndex()).getLabel());
-
-                    // representation.add(vertices.get(edge.getSrc().getIndex()).getLabel());
-                    // representation.add(vertices.get(edge.getDest().getIndex()).getLabel());
-                }
+        
+        for (Map.Entry<Vertex, List<Edge>> entry : adjacencyList.entrySet()){
+            List<Edge> edges = entry.getValue();
+            for (Edge edge : edges) {
+                representation.add(edge.getSrc().getLabel());
+                representation.add(edge.getDest().getLabel());
+            }
         }
         return representation;
     }
 
     public List<String> generateAdjacencyMap() {
         List<String> representation = new ArrayList<>();
-    
-        for (int i = 0; i < numVertices; i++) {
-            if (adjacencyList.get(i).size() != 0) {
+
+        for (Map.Entry<Vertex, List<Edge>> entry : adjacencyList.entrySet()) {
+            if (!entry.getValue().isEmpty()) {
                 StringBuilder line = new StringBuilder();
-                line.append(vertices.get(i).getLabel()).append(" --> ");
-                List<Edge> edges = adjacencyList.get(i);
+                line.append(entry.getKey().getLabel()).append(" --> ");
+                List<Edge> edges = entry.getValue();
                 for (Edge edge : edges) {
-                    line.append(vertices.get(edge.getDest().getIndex()).getLabel())
-                        .append("(").append(edge.getWeight()).append(") ");
+                    line.append(edge.getDest().getLabel()).append("(").append(edge.getWeight()).append(") ");
                 }
                 representation.add(line.toString());
             }
         }
+
         return representation;
     }
 
 
     //Esto imprime el grafo de una manera ordenada, solo muestra los vertice con edges, si uno quedo solo no se imprime
     public void print() {
-        for (int i = 0; i < numVertices; i++) {
-            if(adjacencyList.get(i).size() != 0){
-                System.out.print(vertices.get(i).getLabel() + " --> ");
-                List<Edge> edges = adjacencyList.get(i);
+        for (Map.Entry<Vertex, List<Edge>> entry : adjacencyList.entrySet()) {
+            if (!entry.getValue().isEmpty()) {
+                System.out.print(entry.getKey().getLabel() + " --> ");
+                List<Edge> edges = entry.getValue();
                 for (Edge edge : edges) {
-                    System.out.print(vertices.get(edge.getDest().getIndex()).getLabel() + "(" + edge.getWeight() + ") ");
+                    System.out.print(edge.getDest().getLabel() + "(" + edge.getWeight() + ") ");
                 }
                 System.out.println();
             }

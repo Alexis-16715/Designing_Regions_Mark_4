@@ -189,7 +189,12 @@ public class Designing_Regions_View extends JPanel {
         for (String nameProvince : selectPorvince) {
             double latitude = provinceNameLocations.get(nameProvince).getLatitude();
             double longitude = provinceNameLocations.get(nameProvince).getLongitude();
-            MapMarkerDot marker = new MapMarkerDot(latitude, longitude);
+
+            MapMarkerDot marker = new MapMarkerDot(nameProvince, new Coordinate(latitude, longitude));
+
+            marker.getStyle().setBackColor(Color.RED);
+            marker.getStyle().setColor(Color.BLUE);
+
             mapViewer.addMapMarker(marker);
             JPanel rowPanel = new JPanel(new GridLayout(1, 1));
             rowPanel.setBounds(0,positonX,400,20);
@@ -264,15 +269,18 @@ public class Designing_Regions_View extends JPanel {
                 coordinates.add(new Coordinate(latitude, longitude));
                 // coordinates.add(new Coordinate(latitude, longitude));
 
+
             }
         }
         // MapPolygon polyLine = new MapPolygonImpl(coordinates);
-        MapPolyLine polyLine = new MapPolyLine(coordinates);
-        mapViewer.addMapPolygon(polyLine);
+        // MapPolyLine polyLine = new MapPolyLine(coordinates);
+        mapViewer.addMapPolygon(new MapPolyLine(coordinates));
 
         mapViewer.revalidate();
         mapViewer.repaint();
     }
+
+
 
     public class MapPolyLine extends MapPolygonImpl {
         public MapPolyLine(List<? extends ICoordinate> points) {
@@ -291,7 +299,7 @@ public class Designing_Regions_View extends JPanel {
     
         private Path2D buildPath(List<Point> points) {
             Path2D path = new Path2D.Double();
-            if (points != null && points.size() >= 0) {
+            if (points != null && points.size() >= 1) {
                 Point firstPoint = points.get(0);
                 path.moveTo(firstPoint.getX(), firstPoint.getY());
                 for (int i = 0; i < points.size(); i++) { 

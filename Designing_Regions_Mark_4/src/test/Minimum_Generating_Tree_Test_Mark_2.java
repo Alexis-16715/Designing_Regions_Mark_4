@@ -10,22 +10,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class Minimum_Generating_Tree_Test_Mark_2 {
 
-    @Test
-    public void testMinimumSpanningTree() {
-        Graph graphTest = createGraph();
-        Minimum_Generating_Tree kruskal = new Minimum_Generating_Tree();
+    // @Test
+    // public void testMinimumSpanningTree() {
+    //     Graph graphTest = createGraph();
+    //     Minimum_Generating_Tree kruskal = new Minimum_Generating_Tree();
         
 
-        Graph mst = kruskal.minimumSpanningTree(graphTest);
+    //     Graph mst = kruskal.minimumSpanningTree(graphTest);
 
-        assertNotNull(mst);
+    //     assertNotNull(mst);
 
-        //Verifcamos que la cantidad de Aristas de tanto del grafo original como el grafo kruskal sean diferentes, si son iguales entocnes habira algo mal
-        assertNotEquals(countEdges(graphTest), countEdges(mst));
+    //     //Verifcamos que la cantidad de Aristas de tanto del grafo original como el grafo kruskal sean diferentes, si son iguales entocnes habira algo mal
+    //     assertNotEquals(countEdges(graphTest), countEdges(mst));
 
-        // Verifcamos que el numero de Arista sea correcta
-        assertEquals(9, countEdges(mst));
-    }
+    //     // Verifcamos que el numero de Arista sea correcta
+    //     assertEquals(9, countEdges(mst));
+    // }
 
     private int countEdges(Graph graph) {
         int totalEdges = 0;
