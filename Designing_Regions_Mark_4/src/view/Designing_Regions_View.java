@@ -270,30 +270,6 @@ public class Designing_Regions_View extends JPanel {
         mapViewer.repaint();
     }
 
-    public void createMapPoligon(List<String> provinceToAddToMapViewer) {
-        mapViewer.removeAllMapPolygons();
-        List<Coordinate> coordinates = new ArrayList<Coordinate>();
-        for (String string : provinceToAddToMapViewer) {
-            if(provinceNameLocations.get(string) != null){
-                double latitude = provinceNameLocations.get(string).getLatitude();
-                double longitude = provinceNameLocations.get(string).getLongitude();
-
-                coordinates.add(new Coordinate(latitude, longitude));
-                // coordinates.add(new Coordinate(latitude, longitude));
-
-
-            }
-        }
-        // MapPolygon polyLine = new MapPolygonImpl(coordinates);
-        // MapPolyLine polyLine = new MapPolyLine(coordinates);
-        mapViewer.addMapPolygon(new MapPolyLine(coordinates));
-
-        mapViewer.revalidate();
-        mapViewer.repaint();
-    }
-
-
-
     public class MapPolyLine extends MapPolygonImpl {
         public MapPolyLine(List<? extends ICoordinate> points) {
             super(null, null, points);

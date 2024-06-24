@@ -3,7 +3,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -50,7 +49,7 @@ public class Minimum_Generating_Tree {
         for (Edge edge : sortedEdges) {
             Vertex src = edge.getSrc();;
             Vertex dest = edge.getDest();
-            int weight = edge.getWeight();
+            // int weight = edge.getWeight();
 
             // Comprobar si incluir esta arista forma un ciclo
             if (!findUnion.connected(src, dest)){

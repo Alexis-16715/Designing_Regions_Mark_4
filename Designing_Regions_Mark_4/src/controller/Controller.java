@@ -3,7 +3,6 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +45,7 @@ public class Controller {
     private List<JComboBox<String>> listComboBoxProvince;
     private List<JComboBox<Integer>> listComboBoxWeight;
 
+    @SuppressWarnings("unused")
     private List<String> ListArgentinaEdges;
 
 
@@ -116,7 +116,7 @@ public class Controller {
 
                 Coordinate srcCoordiante = new Coordinate(src.getLatitude(), src.getLongitude());
                 Coordinate destCoordiante = new Coordinate(dest.getLatitude(), dest.getLongitude());
-                
+
                 List<Coordinate> route = Arrays.asList(srcCoordiante, destCoordiante, destCoordiante, srcCoordiante);
                 designingRegionsView.createMapPoligonMark2(route);
             }

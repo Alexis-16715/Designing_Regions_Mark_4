@@ -1,77 +1,69 @@
 package test;
 
 import model.Minimum_Generating_Tree;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import graph_model.Edge;
 import graph_model.Graph;
 import graph_model.Vertex;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 public class Minimum_Generating_Tree_Test_Mark_2 {
+    private Graph graph;
 
-    // @Test
-    // public void testMinimumSpanningTree() {
-    //     Graph graphTest = createGraph();
-    //     Minimum_Generating_Tree kruskal = new Minimum_Generating_Tree();
-        
+    @BeforeEach
+    public void setUp() {
+        graph = new Graph();
 
-    //     Graph mst = kruskal.minimumSpanningTree(graphTest);
 
-    //     assertNotNull(mst);
+        // Agrega a los Vertices
+        graph.addVertex("A");
+        graph.addVertex("B");
+        graph.addVertex("C");
+        graph.addVertex("D");
+        graph.addVertex("E");
 
-    //     //Verifcamos que la cantidad de Aristas de tanto del grafo original como el grafo kruskal sean diferentes, si son iguales entocnes habira algo mal
-    //     assertNotEquals(countEdges(graphTest), countEdges(mst));
-
-    //     // Verifcamos que el numero de Arista sea correcta
-    //     assertEquals(9, countEdges(mst));
-    // }
-
-    private int countEdges(Graph graph) {
-        int totalEdges = 0;
-        for (int i = 0; i < graph.getNumVertices(); i++) {
-            totalEdges += graph.getAdjacencyList().get(i).size();
-        }
-        // Simple contador, "Nothing more, nothing else, just perfect"
-        return totalEdges;
+        // Agrega a los Aristas
+        graph.addEdge(graph.getVertex("A"), graph.getVertex("B"), 1);
+        graph.addEdge(graph.getVertex("A"), graph.getVertex("C"), 3);
+        graph.addEdge(graph.getVertex("A"), graph.getVertex("D"), 4);
+        graph.addEdge(graph.getVertex("B"), graph.getVertex("D"), 2);
+        graph.addEdge(graph.getVertex("B"), graph.getVertex("E"), 5);
+        graph.addEdge(graph.getVertex("C"), graph.getVertex("D"), 6);
+        graph.addEdge(graph.getVertex("D"), graph.getVertex("E"), 7);
     }
 
-    // Aqui se crea el grafo con las arista que tiene que tener
-    private Graph createGraph() {
-        Graph graphTest = new Graph();
-        Vertex v0 = graphTest.addVertex("0");
-        Vertex v1 = graphTest.addVertex("1");
-        Vertex v2 = graphTest.addVertex("2");
-        Vertex v3 = graphTest.addVertex("3");
-        Vertex v4 = graphTest.addVertex("4");
-        Vertex v5 = graphTest.addVertex("5");
-        Vertex v6 = graphTest.addVertex("6");
-        Vertex v7 = graphTest.addVertex("7");
-        Vertex v8 = graphTest.addVertex("8");
-        Vertex v9 = graphTest.addVertex("9");
 
-        graphTest.addEdge(v0, v1, 2);
-        graphTest.addEdge(v0, v3, 3);
-        graphTest.addEdge(v0, v6, 6);
-        graphTest.addEdge(v1, v2, 1);
-        graphTest.addEdge(v1, v6, 4);
-        graphTest.addEdge(v3, v5, 9);
-        graphTest.addEdge(v3, v9, 16);
-        graphTest.addEdge(v2, v4, 11);
-        graphTest.addEdge(v2, v8, 17);
-        graphTest.addEdge(v4, v7, 7);
-        graphTest.addEdge(v4, v8, 8);
-        graphTest.addEdge(v4, v6, 12);
-        graphTest.addEdge(v5, v7, 5);
-        graphTest.addEdge(v5, v9, 10);
-        graphTest.addEdge(v5, v6, 13);
-        graphTest.addEdge(v6, v8, 18);
-        graphTest.addEdge(v6, v9, 19);
-        graphTest.addEdge(v7, v9, 14);
-        graphTest.addEdge(v7, v8, 15);
-        graphTest.addEdge(v5, v4, 20);
+    @Test
+    public void testMinimumSpanningTree() {
+        Minimum_Generating_Tree mstFinder = new Minimum_Generating_Tree();
+        List<Edge> mst = mstFinder.minimumSpanningTree(graph);
 
-        return graphTest;
+        assertNotNull(mst, "Minimum Spanning Tree should not be null");
+        assertEquals(4, mst.size(), "Tiene que tener al menso 4 Aristas");
+
+        int totalWeight = mst.stream().mapToInt(Edge::getWeight).sum();
+        assertEquals(11, totalWeight, "El peso total tendria que ser 11");
+    }
+
+    @Test
+    public void testDisconnectedGraph() {
+        Graph disconnectedGraph = new Graph();
+        disconnectedGraph.addVertex("A");
+        disconnectedGraph.addVertex("B");
+        disconnectedGraph.addVertex("C");
+
+        disconnectedGraph.addEdge(disconnectedGraph.getVertex("A"), disconnectedGraph.getVertex("B"), 1);
+
+        Minimum_Generating_Tree mstFinder = new Minimum_Generating_Tree();
+        List<Edge> mst = mstFinder.minimumSpanningTree(disconnectedGraph);
+
+        assertNull(mst, "MST should be null for a disconnected graph");
     }
 }
 
