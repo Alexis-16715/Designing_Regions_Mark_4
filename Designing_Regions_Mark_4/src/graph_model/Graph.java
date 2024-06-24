@@ -79,6 +79,14 @@ public class Graph {
         return numVertices;
     }
 
+    public List<Edge> getAllEdges() {
+        List<Edge> allEdges = new ArrayList<>();
+        for (Map.Entry<Vertex, List<Edge>> entry : adjacencyList.entrySet()) {
+            allEdges.addAll(entry.getValue());
+        }
+        return allEdges;
+    }
+
 
     public List<String> getAllTheEdgesInStrings() {
         List<String> representation = new ArrayList<>();

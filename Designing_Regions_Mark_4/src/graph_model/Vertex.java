@@ -20,19 +20,15 @@ public class Vertex {
     }
 
     @Override
-	public int hashCode() {
-		return Objects.hash(label);
-	}
+    public int hashCode() {
+        return Objects.hash(index);
+    }
 
     @Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-            Vertex other = (Vertex) obj;
-		return Objects.equals(label, other.label);
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Vertex vertex = (Vertex) obj;
+        return index == vertex.index;
+    }
 }

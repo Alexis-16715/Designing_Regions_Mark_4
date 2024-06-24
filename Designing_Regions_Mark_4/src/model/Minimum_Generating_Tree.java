@@ -29,7 +29,7 @@ public class Minimum_Generating_Tree {
 
 
     public List<Edge> minimumSpanningTree(Graph graphOriginal) {
-        List<Edge> arbolGeneradorMinimo = new ArrayList<>();
+        List<Edge> mst = new ArrayList<>();
 
 
         //Agrega todo las aristas en una lista y colecta todo los Vertice
@@ -40,8 +40,10 @@ public class Minimum_Generating_Tree {
         int numAristas = 0;
         
        //Inicializar conjunto disjunto para detección de ciclo
+       Set<Vertex> allVertices = graphOriginal.getAdjacencyList().keySet();
 
-        Find_Union findUnion = new Find_Union(graphOriginal.getAdjacencyList().keySet());
+
+        Find_Union findUnion = new Find_Union(allVertices);
 
 
         //Iterar sobre Aristas ordenados
@@ -54,7 +56,7 @@ public class Minimum_Generating_Tree {
             if (!findUnion.connected(src, dest)){
 
                 //Se agrega el caso arista con su peso
-                arbolGeneradorMinimo.add(edge);
+                mst.add(edge);
 
                 // System.out.println(src.getLabel() + " --> " + dest.getLabel() + " == " + edge.getWeight());
                 numAristas++;
@@ -72,7 +74,7 @@ public class Minimum_Generating_Tree {
         }
 
         //Retornamos el grafo todo armado con su arista corresponientes 
-        return arbolGeneradorMinimo;
+        return mst;
 
     }
 

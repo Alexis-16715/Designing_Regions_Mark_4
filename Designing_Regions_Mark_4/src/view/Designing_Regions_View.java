@@ -61,7 +61,6 @@ public class Designing_Regions_View extends JPanel {
     private static List<JCheckBox> checkBoxList;
     private Map<String, Coordinates> provinceNameLocations;
 
-
     private JPanel panelBottons;
     private JButton bottonAddProvinceConnectionGraph;
     private JButton bottonKruskal;
@@ -258,6 +257,19 @@ public class Designing_Regions_View extends JPanel {
 
     }
 
+    public void removePreviewsMappolygons(){
+        mapViewer.removeAllMapPolygons();
+        mapViewer.revalidate();
+        mapViewer.repaint();
+    }
+
+    public void createMapPoligonMark2(List<Coordinate> route ){
+        mapViewer.addMapPolygon(new MapPolyLine(route));
+        mapViewer.addMapPolygon(new MapPolyLine(route));
+        mapViewer.revalidate();
+        mapViewer.repaint();
+    }
+
     public void createMapPoligon(List<String> provinceToAddToMapViewer) {
         mapViewer.removeAllMapPolygons();
         List<Coordinate> coordinates = new ArrayList<Coordinate>();
@@ -379,6 +391,9 @@ public class Designing_Regions_View extends JPanel {
         return bottonKruskal;
     }
 
+    public Map<String, Coordinates> getProvinceNameLocations() {
+        return provinceNameLocations;
+    }
     
 
 }

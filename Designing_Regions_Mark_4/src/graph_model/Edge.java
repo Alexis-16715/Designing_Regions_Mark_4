@@ -26,6 +26,11 @@ public class Edge {
     }
 
     @Override
+	public int hashCode() {
+		return Objects.hash(src, dest, weight);
+	}
+
+    @Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

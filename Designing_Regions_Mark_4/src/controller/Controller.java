@@ -2,16 +2,23 @@ package controller;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
+import org.openstreetmap.gui.jmapviewer.Coordinate;
+
 import graph_model.Edge;
 import graph_model.Graph;
 import model.Minimum_Generating_Tree;
+import province.Coordinates;
+import province.Province_Argentina;
 import view.Designing_Regions_View;
 import view.Main_View;
 
@@ -40,6 +47,9 @@ public class Controller {
     private List<JComboBox<Integer>> listComboBoxWeight;
 
     private List<String> ListArgentinaEdges;
+
+
+    private Map<String, Coordinates> provinceNameLocations;
 
 
 
@@ -94,25 +104,52 @@ public class Controller {
                 }
             }
 
+            List<Edge> mst = graph.getAllEdges();
+
             ListArgentinaEdges = graph.getAllTheEdgesInStrings();
             bottonKruskal.setEnabled(true);
-            designingRegionsView.createMapPoligon(ListArgentinaEdges);
+            designingRegionsView.removePreviewsMappolygons();
+            provinceNameLocations = new Province_Argentina().getLocations();
+            for (Edge edge : mst) {
+                Coordinates src = provinceNameLocations.get(edge.getSrc().getLabel());
+                Coordinates dest = provinceNameLocations.get(edge.getDest().getLabel());
+
+                Coordinate srcCoordiante = new Coordinate(src.getLatitude(), src.getLongitude());
+                Coordinate destCoordiante = new Coordinate(dest.getLatitude(), dest.getLongitude());
+                
+                List<Coordinate> route = Arrays.asList(srcCoordiante, destCoordiante, destCoordiante, srcCoordiante);
+                designingRegionsView.createMapPoligonMark2(route);
+            }
+
         });
 
         bottonKruskal.addActionListener(e -> {
             arbolGeneradorMinimo = kruskal.minimumSpanningTree(graph);
             ListArgentinaEdges = new ArrayList<>();
+            provinceNameLocations = designingRegionsView.getProvinceNameLocations();
+
+            provinceNameLocations = new Province_Argentina().getLocations();
             if(arbolGeneradorMinimo !=null ){
+                designingRegionsView.removePreviewsMappolygons();
                 List<String> listaDeProvinciaArgentina = new ArrayList<>();
 
                 for (Edge edge : arbolGeneradorMinimo) {
                     listaDeProvinciaArgentina.add(edge.getSrc().getLabel() + " --> " + edge.getDest().getLabel() +  " ("+ edge.getWeight() + ") ");
-                    ListArgentinaEdges.add(edge.getSrc().getLabel());
-                    ListArgentinaEdges.add(edge.getDest().getLabel());
+
+                    Coordinates src = provinceNameLocations.get(edge.getSrc().getLabel());
+                    Coordinates dest = provinceNameLocations.get(edge.getDest().getLabel());
+
+                    Coordinate srcCoordiante = new Coordinate(src.getLatitude(), src.getLongitude());
+                    Coordinate destCoordiante = new Coordinate(dest.getLatitude(), dest.getLongitude());
+
+
+                    List<Coordinate> route = Arrays.asList(srcCoordiante, destCoordiante, destCoordiante, srcCoordiante);
+                    designingRegionsView.createMapPoligonMark2(route);
+
                 }
 
                 designingRegionsView.createStringOfTheGraph(listaDeProvinciaArgentina, graph.generateAdjacencyMap());
-                designingRegionsView.createMapPoligon(ListArgentinaEdges);
+                // designingRegionsView.createMapPoligon(ListArgentinaEdges);
 
             } else{
                 JOptionPane.showMessageDialog(null, "El grafo no es Conexo: ", "Recuerde que el grafo tiene que estar conectado", JOptionPane.ERROR_MESSAGE);
