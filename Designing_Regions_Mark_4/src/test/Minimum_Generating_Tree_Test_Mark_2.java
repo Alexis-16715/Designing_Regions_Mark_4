@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import graph_model.Edge;
 import graph_model.Graph;
-import graph_model.Vertex;
 
 import static org.junit.jupiter.api.Assertions.*;
 

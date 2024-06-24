@@ -67,8 +67,11 @@ public class Minimum_Generating_Tree {
         }
 
         // Verificar si el Arbol tiene exactamente V-1 aristas
-        if (graphOriginal.getNumVertices() - 1 != numAristas) {
-            System.out.println("El grafo debe ser conexo.");
+        // if (graphOriginal.getNumVertices() - 1 != numAristas) {
+        //     return null;
+        // }
+
+        if (graphOriginal.getNumVertices() - 1 > numAristas) {
             return null;
         }
 
