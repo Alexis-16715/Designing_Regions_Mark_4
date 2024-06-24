@@ -22,12 +22,12 @@ public class Minimum_Generating_Tree {
 
 
     public Minimum_Generating_Tree (){
-        sortedEdges = new ArrayList<>();
     }
 
 
 
     public List<Edge> minimumSpanningTree(Graph graphOriginal) {
+        sortedEdges = new ArrayList<>();
         List<Edge> mst = new ArrayList<>();
 
 
@@ -36,7 +36,7 @@ public class Minimum_Generating_Tree {
             sortedEdges.addAll(aristas);
         }
         Collections.sort(sortedEdges, Comparator.comparingInt(Edge::getWeight));
-        int numAristas = 0;
+        int numEdges = 0;
         
        //Inicializar conjunto disjunto para detección de ciclo
        Set<Vertex> allVertices = graphOriginal.getAdjacencyList().keySet();
@@ -58,7 +58,7 @@ public class Minimum_Generating_Tree {
                 mst.add(edge);
 
                 // System.out.println(src.getLabel() + " --> " + dest.getLabel() + " == " + edge.getWeight());
-                numAristas++;
+                numEdges++;
 
                 //Unir los conjuntos de inicio y destino
                 findUnion.union(src, dest);
@@ -71,7 +71,7 @@ public class Minimum_Generating_Tree {
         //     return null;
         // }
 
-        if (graphOriginal.getNumVertices() - 1 > numAristas) {
+        if (graphOriginal.getNumVertices() - 1 > numEdges) {
             return null;
         }
 

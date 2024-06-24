@@ -124,10 +124,8 @@ public class Controller {
         });
 
         bottonKruskal.addActionListener(e -> {
-            arbolGeneradorMinimo = kruskal.minimumSpanningTree(graph);
-            ListArgentinaEdges = new ArrayList<>();
             provinceNameLocations = designingRegionsView.getProvinceNameLocations();
-
+            arbolGeneradorMinimo = kruskal.minimumSpanningTree(graph);
             provinceNameLocations = new Province_Argentina().getLocations();
             if(arbolGeneradorMinimo !=null ){
                 designingRegionsView.removePreviewsMappolygons();
@@ -149,11 +147,11 @@ public class Controller {
                 }
 
                 designingRegionsView.createStringOfTheGraph(listaDeProvinciaArgentina, graph.generateAdjacencyMap());
-                // designingRegionsView.createMapPoligon(ListArgentinaEdges);
 
             } else{
-                JOptionPane.showMessageDialog(null, "El grafo no es Conexo: ", "Recuerde que el grafo tiene que estar conectado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Recuerde que el grafo tiene que estar conectado", "El grafo no es Conexo: ", JOptionPane.ERROR_MESSAGE);
             }
+            
         });
 
 
