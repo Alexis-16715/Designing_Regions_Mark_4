@@ -250,6 +250,19 @@ public class DesigningRegionsView extends JPanel {
         return model;
     }
 
+    private DefaultComboBoxModel<Integer> createComboBoxDivideCountry(int limited) {
+        DefaultComboBoxModel<Integer> model = new DefaultComboBoxModel<>();
+
+        if(limited == 1){
+            model.addElement(1);
+        } else{
+            for (int i = 2; i <= limited; i++) {
+                model.addElement(i);
+            }
+        }
+        return model;
+    }
+
     private void generatedBottonsGraph() {
         panelBottons = new JPanel();
         panelBottons.setBounds(0,900,400,40);
@@ -280,11 +293,11 @@ public class DesigningRegionsView extends JPanel {
         panelDivideCountry.setBounds(0,10,400,70);
         panelCheckBox.add(panelDivideCountry);
 
-        JLabel headerLabel = new JLabel("Cuanto veces quieres dividir el grafo: ");
+        JLabel headerLabel = new JLabel("¿En cuantas regiones queres separar el pais? ");
         panelDivideCountry.add(headerLabel);
 
 
-        comboBoxDivideCountry = new JComboBox<>(createComboBoxModel(limited)); 
+        comboBoxDivideCountry = new JComboBox<>(createComboBoxDivideCountry(limited)); 
 
         panelDivideCountry.add(comboBoxDivideCountry); 
 
