@@ -31,9 +31,9 @@ import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
 import org.openstreetmap.gui.jmapviewer.interfaces.ICoordinate;
 
 import province.Coordinates;
-import province.Province_Argentina;
+import province.ProvinceArgentina;
 
-public class Designing_Regions_View extends JPanel {
+public class DesigningRegionsView extends JPanel {
 
     private int width;
     private int height;
@@ -52,7 +52,7 @@ public class Designing_Regions_View extends JPanel {
 
 
 
-    private Province_Argentina province;
+    private ProvinceArgentina province;
     private Coordinate argentina;
 
 
@@ -79,11 +79,11 @@ public class Designing_Regions_View extends JPanel {
 
     //Esta es la clase en la que se genera los botones y mapa
 
-    public Designing_Regions_View(int width, int height){
+    public DesigningRegionsView(int width, int height){
         this.width = width;
         this.height = height;
 
-        province = new Province_Argentina();
+        province = new ProvinceArgentina();
 
         initialize();
     }

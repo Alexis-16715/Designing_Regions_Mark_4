@@ -7,13 +7,13 @@ import java.util.Set;
 import graph_model.Vertex;
 
 
-public class Find_Union {
+public class FindUnion {
 
 
     private Map<Vertex, Vertex> parentMap = new HashMap<>();
 
 
-    public Find_Union(Set<Vertex> arrayList) {
+    public FindUnion(Set<Vertex> arrayList) {
 
         for (Vertex vertice : arrayList) {
             parentMap.put(vertice, vertice);

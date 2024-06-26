@@ -15,21 +15,21 @@ import org.openstreetmap.gui.jmapviewer.Coordinate;
 
 import graph_model.Edge;
 import graph_model.Graph;
-import model.Minimum_Generating_Tree;
+import model.MinimumGeneratingTree;
 import province.Coordinates;
-import province.Province_Argentina;
-import view.Designing_Regions_View;
-import view.Main_View;
+import province.ProvinceArgentina;
+import view.DesigningRegionsView;
+import view.MainView;
 
 public class Controller {
 
     @SuppressWarnings("unused")
-    private Main_View view;
+    private MainView view;
 
-    private Designing_Regions_View designingRegionsView;
+    private DesigningRegionsView designingRegionsView;
 
     private Graph graph;
-    private Minimum_Generating_Tree kruskal;
+    private MinimumGeneratingTree kruskal;
 
     private JButton bottonAddProvince;
 
@@ -60,7 +60,7 @@ public class Controller {
 
 
 
-    public Controller (Designing_Regions_View designingRegionsView, Main_View view,  Graph graph, Minimum_Generating_Tree kruskal){
+    public Controller (DesigningRegionsView designingRegionsView, MainView view,  Graph graph, MinimumGeneratingTree kruskal){
         this.view = view;
         this.designingRegionsView = designingRegionsView;
         this.graph = graph;
@@ -115,7 +115,7 @@ public class Controller {
             ListArgentinaEdges = graph.getAllTheEdgesInStrings();
             bottonKruskal.setEnabled(true);
             designingRegionsView.removePreviewsMappolygons();
-            provinceNameLocations = new Province_Argentina().getLocations();
+            provinceNameLocations = new ProvinceArgentina().getLocations();
             for (Edge edge : mst) {
                 Coordinates src = provinceNameLocations.get(edge.getSrc().getLabel());
                 Coordinates dest = provinceNameLocations.get(edge.getDest().getLabel());
@@ -133,7 +133,7 @@ public class Controller {
             provinceNameLocations = designingRegionsView.getProvinceNameLocations();
             
             arbolGeneradorMinimo = kruskal.minimumSpanningTree(graph);
-            provinceNameLocations = new Province_Argentina().getLocations();
+            provinceNameLocations = new ProvinceArgentina().getLocations();
             if(arbolGeneradorMinimo !=null ){
                 designingRegionsView.removeCheckBoxElements();
                 designingRegionsView.createCheckboxDivideCountry(arbolGeneradorMinimo.size());

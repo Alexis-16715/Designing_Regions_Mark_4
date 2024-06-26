@@ -12,7 +12,7 @@ import graph_model.Vertex;
 
 
 
-public class Minimum_Generating_Tree {
+public class MinimumGeneratingTree {
     
     //Esto es Artistas or Edges
     private ArrayList<Edge> sortedEdges;
@@ -21,7 +21,7 @@ public class Minimum_Generating_Tree {
 
 
 
-    public Minimum_Generating_Tree (){
+    public MinimumGeneratingTree (){
     }
 
 
@@ -42,7 +42,7 @@ public class Minimum_Generating_Tree {
        Set<Vertex> allVertices = graphOriginal.getAdjacencyList().keySet();
 
 
-        Find_Union findUnion = new Find_Union(allVertices);
+        FindUnion findUnion = new FindUnion(allVertices);
 
 
         //Iterar sobre Aristas ordenados

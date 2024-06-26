@@ -5,7 +5,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-public class Main_View {
+public class MainView {
 
     private int width;
     private int height;
@@ -13,13 +13,13 @@ public class Main_View {
     private JFrame frame;
 
 
-    private Designing_Regions_View designingRegions;
+    private DesigningRegionsView designingRegions;
 
     //Icono creado por Alexis Knack
     private URL image = getClass().getResource("/images/Icon mark 3.png");
 
     //Lo que hace esta clase es inicializar la ventana en general
-    public Main_View(){
+    public MainView(){
         initialize();
     }
 
@@ -43,7 +43,7 @@ public class Main_View {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        designingRegions = new Designing_Regions_View(width, height);
+        designingRegions = new DesigningRegionsView(width, height);
         designingRegions.setVisible(true);
         frame.add(designingRegions);
         frame.pack();
@@ -52,7 +52,7 @@ public class Main_View {
         designingRegions.requestFocus();
     }
 
-    public Designing_Regions_View getDesigningRegions() {
+    public DesigningRegionsView getDesigningRegions() {
         return designingRegions;
     }
 

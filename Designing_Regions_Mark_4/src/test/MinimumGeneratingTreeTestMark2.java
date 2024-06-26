@@ -1,6 +1,6 @@
 package test;
 
-import model.Minimum_Generating_Tree;
+import model.MinimumGeneratingTree;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-public class Minimum_Generating_Tree_Test_Mark_2 {
+public class MinimumGeneratingTreeTestMark2 {
     private Graph graph;
 
     @BeforeEach
@@ -40,7 +40,7 @@ public class Minimum_Generating_Tree_Test_Mark_2 {
 
     @Test
     public void testMinimumSpanningTree() {
-        Minimum_Generating_Tree mstFinder = new Minimum_Generating_Tree();
+        MinimumGeneratingTree mstFinder = new MinimumGeneratingTree();
         List<Edge> mst = mstFinder.minimumSpanningTree(graph);
 
         assertNotNull(mst, "Minimum Spanning Tree should not be null");
@@ -59,7 +59,7 @@ public class Minimum_Generating_Tree_Test_Mark_2 {
 
         disconnectedGraph.addEdge(disconnectedGraph.getVertex("A"), disconnectedGraph.getVertex("B"), 1);
 
-        Minimum_Generating_Tree mstFinder = new Minimum_Generating_Tree();
+        MinimumGeneratingTree mstFinder = new MinimumGeneratingTree();
         List<Edge> mst = mstFinder.minimumSpanningTree(disconnectedGraph);
 
         assertNull(mst, "MST should be null for a disconnected graph");

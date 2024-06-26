@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Province_Argentina {
+public class ProvinceArgentina {
     
     private Map<String, Coordinates> locations;
 
-    public Province_Argentina(){
+    public ProvinceArgentina(){
         this.locations = new HashMap<>();
         generateProvinceArgentina();
     }
