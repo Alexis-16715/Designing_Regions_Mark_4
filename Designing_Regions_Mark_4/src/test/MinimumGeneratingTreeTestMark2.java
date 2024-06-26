@@ -43,7 +43,7 @@ public class MinimumGeneratingTreeTestMark2 {
         MinimumGeneratingTree mstFinder = new MinimumGeneratingTree();
         List<Edge> mst = mstFinder.minimumSpanningTree(graph);
 
-        assertNotNull(mst, "Minimum Spanning Tree should not be null");
+        assertNotNull(mst, "El arbol generador minimo no tiene que ser null");
         assertEquals(4, mst.size(), "Tiene que tener al menso 4 Aristas");
 
         int totalWeight = mst.stream().mapToInt(Edge::getWeight).sum();
@@ -62,7 +62,7 @@ public class MinimumGeneratingTreeTestMark2 {
         MinimumGeneratingTree mstFinder = new MinimumGeneratingTree();
         List<Edge> mst = mstFinder.minimumSpanningTree(disconnectedGraph);
 
-        assertNull(mst, "MST should be null for a disconnected graph");
+        assertNull(mst, "Tiene que dar null ya que el grafo es disconexo");
     }
 }
 
