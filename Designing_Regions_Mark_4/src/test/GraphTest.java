@@ -2,11 +2,14 @@ package test;
 
 import org.junit.jupiter.api.Test;
 
+import graph_model.Edge;
 import graph_model.Graph;
 import graph_model.Vertex;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class GraphTest {
@@ -60,6 +63,28 @@ public class GraphTest {
         List<String> adjacencyMap = graph.generateAdjacencyMap();
 
         assertTrue(adjacencyMap.contains("A --> B(10) "));
+    }
+
+    @Test
+    public void testDeletedHeavyWeight(){
+        Graph graph = new Graph();
+        Vertex vertexA = graph.addVertex("A");
+        Vertex vertexB = graph.addVertex("B");
+        Vertex vertexC = graph.addVertex("C");
+        Vertex vertexD = graph.addVertex("D");
+
+        graph.addEdge(vertexA, vertexB, 10);
+        graph.addEdge(vertexB, vertexC, 1);
+        graph.addEdge(vertexC, vertexD, 5);
+
+        List<Edge> allEdges = graph.getAllEdges();
+        Collections.sort(allEdges, Comparator.comparingInt(Edge::getWeight));
+        List<Edge> deletedHeavieEdge = graph.getAllEdges();
+        Collections.sort(deletedHeavieEdge, Comparator.comparingInt(Edge::getWeight));
+
+        deletedHeavieEdge = graph.deletedHeavieEdge(deletedHeavieEdge, 1);
+        assertNotEquals(allEdges.size(), deletedHeavieEdge.size()); //Se espera que allEdges tenga 3 y deletedHeavieEdge tenga 2
+        
     }
 }
 
