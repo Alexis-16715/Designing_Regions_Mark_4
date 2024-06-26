@@ -52,6 +52,12 @@ public class Controller {
     private Map<String, Coordinates> provinceNameLocations;
 
 
+    private JButton bottonDivideCountry;
+
+
+    private JComboBox<Integer> comboBoxDivideCountry;
+
+
 
 
     public Controller (Designing_Regions_View designingRegionsView, Main_View view,  Graph graph, Minimum_Generating_Tree kruskal){
@@ -127,37 +133,52 @@ public class Controller {
             provinceNameLocations = designingRegionsView.getProvinceNameLocations();
             
             arbolGeneradorMinimo = kruskal.minimumSpanningTree(graph);
-            graph.deletedHeavieEdge(arbolGeneradorMinimo);
             provinceNameLocations = new Province_Argentina().getLocations();
             if(arbolGeneradorMinimo !=null ){
-                designingRegionsView.removePreviewsMappolygons();
-                List<String> listaDeProvinciaArgentina = new ArrayList<>();
-
-                for (Edge edge : arbolGeneradorMinimo) {
-                    listaDeProvinciaArgentina.add(edge.getSrc().getLabel() + " --> " + edge.getDest().getLabel() +  " ("+ edge.getWeight() + ") ");
-
-                    Coordinates src = provinceNameLocations.get(edge.getSrc().getLabel());
-                    Coordinates dest = provinceNameLocations.get(edge.getDest().getLabel());
-
-                    Coordinate srcCoordiante = new Coordinate(src.getLatitude(), src.getLongitude());
-                    Coordinate destCoordiante = new Coordinate(dest.getLatitude(), dest.getLongitude());
-
-
-                    List<Coordinate> route = Arrays.asList(srcCoordiante, destCoordiante, destCoordiante, srcCoordiante);
-                    designingRegionsView.createMapPoligonMark2(route);
-
-                }
-
-                designingRegionsView.createStringOfTheGraph(listaDeProvinciaArgentina, graph.generateAdjacencyMap());
-
+                designingRegionsView.removeCheckBoxElements();
+                designingRegionsView.createCheckboxDivideCountry(arbolGeneradorMinimo.size());
+                bottonKruskal.setEnabled(false);
+                bottonAddProvinceConnectionGraph.setEnabled(false);
+                attachListenersButtonDivdeCountry();
             } else{
                 JOptionPane.showMessageDialog(null, "Recuerde que el grafo tiene que estar conectado", "El grafo no es Conexo: ", JOptionPane.ERROR_MESSAGE);
             }
             
         });
 
-
-
     }
+
+    private void attachListenersButtonDivdeCountry(){
+        bottonDivideCountry = designingRegionsView.getBottonDivideCountry();
+        comboBoxDivideCountry = designingRegionsView.getComboBoxDivideCountry();
+
+        bottonDivideCountry.addActionListener(e -> {
+            designingRegionsView.removePreviewsMappolygons();
+            List<String> listaDeProvinciaArgentina = new ArrayList<>();
+            if(comboBoxDivideCountry.getSelectedItem().hashCode() > 1){
+                arbolGeneradorMinimo = graph.deletedHeavieEdge(arbolGeneradorMinimo, comboBoxDivideCountry.getSelectedItem().hashCode() - 1);
+            }
+            for (Edge edge : arbolGeneradorMinimo) {
+                listaDeProvinciaArgentina.add(edge.getSrc().getLabel() + " --> " + edge.getDest().getLabel() +  " ("+ edge.getWeight() + ") ");
+
+                Coordinates src = provinceNameLocations.get(edge.getSrc().getLabel());
+                Coordinates dest = provinceNameLocations.get(edge.getDest().getLabel());
+
+                Coordinate srcCoordiante = new Coordinate(src.getLatitude(), src.getLongitude());
+                Coordinate destCoordiante = new Coordinate(dest.getLatitude(), dest.getLongitude());
+
+
+                List<Coordinate> route = Arrays.asList(srcCoordiante, destCoordiante, destCoordiante, srcCoordiante);
+                designingRegionsView.createMapPoligonMark2(route);
+
+                }
+
+                designingRegionsView.createStringOfTheGraph(listaDeProvinciaArgentina, graph.generateAdjacencyMap());
+                bottonDivideCountry.setEnabled(false);
+                comboBoxDivideCountry.setEnabled(false);
+        });
+        
+    }
+
 
 }

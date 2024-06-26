@@ -1,10 +1,12 @@
 ﻿package view;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Panel;
 import java.awt.Point;
 import java.awt.geom.Path2D;
 import java.util.ArrayList;
@@ -68,6 +70,12 @@ public class Designing_Regions_View extends JPanel {
 
     private List<JComboBox<String>> listComboBoxProvince;
     private List<JComboBox<Integer>> listComboBoxWeight;
+
+
+    private Panel panelDivideCountry;
+    private JButton bottonDivideCountry;
+
+    private JComboBox<Integer> comboBoxDivideCountry;
 
     //Esta es la clase en la que se genera los botones y mapa
 
@@ -206,7 +214,7 @@ public class Designing_Regions_View extends JPanel {
             JComboBox<String> comboBox1 = new JComboBox<>(createComboBoxProvince(selectPorvince, nameProvince));
             rowPanel.add(comboBox1);
         
-            JComboBox<Integer> comboBox2 = new JComboBox<>(createComboBoxModel()); 
+            JComboBox<Integer> comboBox2 = new JComboBox<>(createComboBoxModel(10)); 
             rowPanel.add(comboBox2); 
 
             listComboBoxProvince.add(comboBox1);
@@ -235,9 +243,9 @@ public class Designing_Regions_View extends JPanel {
         return model;
     }
 
-    private DefaultComboBoxModel<Integer> createComboBoxModel() {
+    private DefaultComboBoxModel<Integer> createComboBoxModel(int limited) {
         DefaultComboBoxModel<Integer> model = new DefaultComboBoxModel<>();
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= limited; i++) {
             model.addElement(i);
         }
         return model;
@@ -256,6 +264,39 @@ public class Designing_Regions_View extends JPanel {
         panelBottons.add(bottonKruskal);
 
     }
+
+    public void removeCheckBoxElements(){
+        panelCheckBox.removeAll();
+        revalidate();
+        repaint();
+    }
+
+    public void createCheckboxDivideCountry(int limited){
+
+        panelCheckBox.setLayout(null); 
+        panelCheckBox.setBounds(0,60,400,300);
+
+
+        panelDivideCountry = new Panel();
+        panelDivideCountry.setBounds(0,10,400,70);
+        panelCheckBox.add(panelDivideCountry);
+
+        JLabel headerLabel = new JLabel("Cuanto veces quieres dividir el grafo: ");
+        panelDivideCountry.add(headerLabel);
+
+
+        comboBoxDivideCountry = new JComboBox<>(createComboBoxModel(limited)); 
+
+        panelDivideCountry.add(comboBoxDivideCountry); 
+
+
+        bottonDivideCountry = new JButton("Generar el grafo y texto");
+        panelDivideCountry.add(bottonDivideCountry);
+
+        
+
+    }
+
 
     public void removePreviewsMappolygons(){
         mapViewer.removeAllMapPolygons();
@@ -370,6 +411,15 @@ public class Designing_Regions_View extends JPanel {
     public Map<String, Coordinates> getProvinceNameLocations() {
         return provinceNameLocations;
     }
+
+    public JButton getBottonDivideCountry() {
+        return bottonDivideCountry;
+    }
+
+    public JComboBox<Integer> getComboBoxDivideCountry() {
+        return comboBoxDivideCountry;
+    }
+
     
 
 }

@@ -1,6 +1,7 @@
 ﻿package graph_model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,22 +79,26 @@ public class Graph {
         return numVertices;
     }
 
-    public List<Edge> deletedHeavieEdge(List<Edge> aristas) {
-        Edge EdgeHeavyWeight = null;
-        int maxWeight = Integer.MIN_VALUE;
-        for (Edge arista : aristas) {
-            if (arista.getWeight() > maxWeight) {
-                maxWeight = arista.getWeight();
-                EdgeHeavyWeight = arista;
-            }
-        }
-        if (EdgeHeavyWeight != null) {
-            aristas.remove(EdgeHeavyWeight);
-        } else {
-            throw new RuntimeException("La lista de aristas está vacía");
-        }
-        return aristas;
+    public List<Edge> deletedHeavieEdge(List<Edge> listEdges, int remove) {
+    if (listEdges.isEmpty()) {
+        throw new RuntimeException("La lista de aristas está vacía");
     }
+
+    if (remove <= 0) {
+        throw new IllegalArgumentException("El número de aristas a eliminar debe ser mayor que cero");
+    }
+
+    // Nos fijames de no eliminar elementos de mas
+    int numberOfRemovals = Math.min(remove, listEdges.size());
+
+
+    // Aqui removemos los elemntos que estan al final AKA los mas pesados
+    for (int i = 0; i < numberOfRemovals; i++) {
+        listEdges.remove(listEdges.size() - 1);
+    }
+
+    return listEdges;
+}
 
     public List<Edge> getAllEdges() {
         List<Edge> allEdges = new ArrayList<>();
