@@ -2,12 +2,8 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
-
 
 public class Graph {
     private int numVertices;
@@ -80,6 +76,23 @@ public class Graph {
 
     public int getNumVertices() {
         return numVertices;
+    }
+
+    public List<Edge> deletedHeavieEdge(List<Edge> aristas) {
+        Edge EdgeHeavyWeight = null;
+        int maxWeight = Integer.MIN_VALUE;
+        for (Edge arista : aristas) {
+            if (arista.getWeight() > maxWeight) {
+                maxWeight = arista.getWeight();
+                EdgeHeavyWeight = arista;
+            }
+        }
+        if (EdgeHeavyWeight != null) {
+            aristas.remove(EdgeHeavyWeight);
+        } else {
+            throw new RuntimeException("La lista de aristas está vacía");
+        }
+        return aristas;
     }
 
     public List<Edge> getAllEdges() {

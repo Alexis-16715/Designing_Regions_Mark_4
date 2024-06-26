@@ -125,7 +125,9 @@ public class Controller {
 
         bottonKruskal.addActionListener(e -> {
             provinceNameLocations = designingRegionsView.getProvinceNameLocations();
+            
             arbolGeneradorMinimo = kruskal.minimumSpanningTree(graph);
+            graph.deletedHeavieEdge(arbolGeneradorMinimo);
             provinceNameLocations = new Province_Argentina().getLocations();
             if(arbolGeneradorMinimo !=null ){
                 designingRegionsView.removePreviewsMappolygons();

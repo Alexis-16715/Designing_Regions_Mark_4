@@ -8,34 +8,33 @@ import graph_model.Vertex;
 
 
 public class Find_Union {
-    private Map<Vertex, Vertex> parent;
-    private Map<Vertex, Integer> rank;
 
-    public Find_Union(Set<Vertex> vertices) {
-        parent = new HashMap<>();
-        rank = new HashMap<>();
-        for (Vertex vertex : vertices) {
-            parent.put(vertex, vertex);
-            rank.put(vertex, 0);
+
+    private Map<Vertex, Vertex> parentMap = new HashMap<>();
+
+
+    public Find_Union(Set<Vertex> arrayList) {
+
+        for (Vertex vertice : arrayList) {
+            parentMap.put(vertice, vertice);
         }
+
     }
 
     public Vertex find(Vertex vertex) {
-        if (parent.get(vertex) != vertex) {
-            parent.put(vertex, find(parent.get(vertex))); // Path compression
+        if (parentMap.get(vertex) != vertex) {
+            parentMap.put(vertex, find(parentMap.get(vertex)));
         }
-        return parent.get(vertex);
+        return parentMap.get(vertex);
     }
 
-    public void union(Vertex root1, Vertex root2) {
-        if (rank.get(root1) > rank.get(root2)) {
-            parent.put(root2, root1);
-        } else if (rank.get(root1) < rank.get(root2)) {
-            parent.put(root1, root2);
-        } else {
-            parent.put(root2, root1);
-            rank.put(root1, rank.get(root1) + 1);
+    public void union(Vertex src, Vertex dest) {
+        Vertex srcParent = find(src);
+        Vertex destParent = find(dest);
+        if (!srcParent.equals(destParent)) {
+            parentMap.put(srcParent, destParent); // Ahora u está bajo el conjunto de v
         }
+
     }
 
     public boolean connected(Vertex vertex1, Vertex vertex2) {
@@ -45,4 +44,5 @@ public class Find_Union {
         // Verifica si los padres son iguales
         return fatherSrc.equals(fatherDest);
     }
+
 }

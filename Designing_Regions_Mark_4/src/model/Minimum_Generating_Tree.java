@@ -57,7 +57,7 @@ public class Minimum_Generating_Tree {
                 //Se agrega el caso arista con su peso
                 mst.add(edge);
 
-                // System.out.println(src.getLabel() + " --> " + dest.getLabel() + " == " + edge.getWeight());
+                System.out.println(src.getLabel() + " --> " + dest.getLabel() + " == " + edge.getWeight());
                 numEdges++;
 
                 //Unir los conjuntos de inicio y destino
